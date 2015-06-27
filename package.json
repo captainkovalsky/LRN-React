@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"http-server ./public -a 127.0.0.1 -p 7890 -o | npm run-script livereload",
-    "livereload":"node livereload-server.js",
+    "start": "http-server ./public -a 127.0.0.1 -p 7890 -o | npm run-script livereload",
+    "livereload": "node livereload-server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/vdzundza/LRN-React#readme",
   "devDependencies": {
+    "gulp": "^3.9.0",
     "livereload": "^0.3.7"
   },
   "dependencies": {
