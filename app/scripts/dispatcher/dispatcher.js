@@ -1,5 +1,4 @@
-var promise = new Promise();
-var _callbacks = [];
-var _promises = [];
+import {Dispatcher} from 'flux';
+import assign from 'object-assign';
 
-var Dispatcher = function (){};
+export default new Dispatcher();
