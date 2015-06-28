@@ -1,5 +1,4 @@
-
-var React = window.React = require('react');
+import React from 'react';
 var mountNode = document.getElementById("app");
 
 class Counter extends React.Component{

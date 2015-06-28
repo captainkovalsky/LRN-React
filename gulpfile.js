@@ -10,6 +10,7 @@ var path = require('path');
 // Load plugins
 var $ = require('gulp-load-plugins')();
 var browserify = require('browserify');
+var babelify = require('babelify');
 var watchify = require('watchify');
 var source = require('vinyl-source-stream'),
 
@@ -52,27 +53,28 @@ var bundler = watchify(browserify({
     cache: {},
     packageCache: {},
     fullPaths: true
-}));
+}).transform(babelify));
 
 bundler.on('update', rebundle);
 bundler.on('log', $.util.log);
 
 function rebundle() {
     return bundler.bundle()
+
         // log errors if they happen
         .on('error', $.util.log.bind($.util, 'Browserify Error'))
         .pipe(source(destFileName))
         .pipe(gulp.dest(destFolder))
-        .on('end', function() {
-            reload();
-        });
+        .on('end', reload);
 }
 
 // Scripts
 gulp.task('scripts', rebundle);
 
 gulp.task('buildScripts', function() {
-    return browserify(sourceFile)
+    return
+        browserify(sourceFile)
+        .transform(babelify)
         .bundle()
         .pipe(source(destFileName))
         .pipe(gulp.dest('dist/scripts'));
@@ -176,7 +178,7 @@ gulp.task('watch', ['html', 'fonts', 'bundle'], function() {
 
     gulp.watch(['app/styles/**/*.scss', 'app/styles/**/*.css'], ['styles', reload]);
 
-    
+
 
     // Watch image files
     gulp.watch('app/images/**/*', reload);
