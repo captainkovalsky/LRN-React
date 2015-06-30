@@ -1,6 +1,5 @@
-var AppDispatcher = import {AppDispatcher} from '../dispatcher/dispatcher.js';
-var EventEmitter = import {EventEmitter} from 'events';
-console.log('EventEmitter ', EventEmitter);
+import {AppDispatcher} from '../dispatcher/dispatcher';
+import {EventEmitter} from 'events';
 const CHANGE_EVENT = 'change';
 
 var _questions = {};

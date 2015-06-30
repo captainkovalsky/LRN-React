@@ -1,11 +1,12 @@
 import React from 'react';
+import {QuestionStore} from './stores/question-store.js';
 var mountNode = document.getElementById("app");
-
 class Counter extends React.Component{
   constructor(props){
     super(props);
     this.tick = this.tick.bind(this);
     this.state = {count: props.initialCount};
+
   }
 
   tick(){
@@ -18,6 +19,7 @@ class Counter extends React.Component{
     );
   }
 }
+
 Counter.propTypes = {initialCount: React.PropTypes.number};
 Counter.defaultProps = {initialCount: 0};
 
