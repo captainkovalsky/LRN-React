@@ -13,14 +13,22 @@ class Question{
   }
 }
 
-class MultiSelectQuestion extend Question{
+class MultiSelectQuestion extends Question{
   applyAnswer(answer){
     var correct = 0;
-    let i = 0;
-    let max = answer.getAnswers().length;
-
-    for(; i < max; ++i ){
-
+    var i = 0;
+    var answers = answer.getAnswersId();
+    var max = answers.length;
+    for(; i < max; ++i){
+      correct += super.applyAnswer(answers[i]);
     }
+
+    if(correct === 0){
+      return 0;
+    }
+
+    return max / correct;
   }
 }
+
+ export { Answer, MultiAnswer, Question, MultiSelectQuestion };
