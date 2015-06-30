@@ -1,7 +1,7 @@
 import {AppDispatcher} from '../dispatcher/dispatcher';
 import {Question} from '../components/Question.js';
 import {EventEmitter} from 'events';
-const ADDED_QUESTION = 'ADDED_QUESTION';
+import {ADDED_QUESTION, DELETED_QUESTION} from '../constants/constants.js';
 
 class QuestionStore extends EventEmitter{
 
@@ -16,14 +16,12 @@ class QuestionStore extends EventEmitter{
 }
 var store = new QuestionStore;
 
-
 AppDispatcher.register(function(action){
   switch(action.actionType){
-    case 'ADDED_QUESTION':
+    case ADDED_QUESTION:
       console.log('ADDED_QUESTION');
     break;
   }
 });
 store.addQuestion("What\'s your name?");
-
 export default store;
