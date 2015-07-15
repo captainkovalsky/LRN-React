@@ -1,5 +1,6 @@
 import React from 'react';
 import {QuestionStore} from './stores/question-store.js';
+
 var mountNode = document.getElementById("app");
 class Counter extends React.Component{
   constructor(props){
