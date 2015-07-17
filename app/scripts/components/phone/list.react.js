@@ -1,10 +1,10 @@
 import React from 'react';
-import PhoneStore from '../stores/phone-store.js';
+import PhoneStore from '../../stores/phone-store.js'; //TODO: avoid
 import {Table} from 'react-bootstrap';
 
-import PhoneRow from '../components/phone-row.react';
+import PhoneRow from './row.react.js';
 
-class ProductList extends React.Component{
+class PhoneList extends React.Component{
 
   constructor (props) {
     super(props);
@@ -33,4 +33,4 @@ class ProductList extends React.Component{
     }
 }
 
-export default ProductList;
+export default PhoneList;

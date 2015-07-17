@@ -1,6 +1,6 @@
 import React from 'react';
-import ProductList from './components/phone-list.react';
+import PhoneList from './components/phone/list.react';
 
 var mountNode = document.getElementById("content");
 
-React.render(<ProductList></ProductList>, mountNode);
+React.render(<PhoneList></PhoneList>, mountNode);
