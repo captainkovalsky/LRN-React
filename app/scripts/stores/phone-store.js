@@ -1,14 +1,16 @@
 import {AppDispatcher} from '../dispatcher/dispatcher';
 import {EventEmitter} from 'events';
-import  '../constants/constants.js';
+import {FILTER_PHONE} from '../constants/constants.js';
 
 class PhoneStore extends EventEmitter{
 
   constructor(){
     super();
-    this._phones = [{
-      "name" : "Nexus 5"
-    }];
+    this._phones = [
+    {name: 'NEXUS', price: 299, attr: {color: 'red'}}, 
+    {name: 'АЙФОНІЙ', price: 699, attr: {color: 'blue'}},
+    {name: 'LUMIA 630', price: 69, attr: {color: 'green'}},
+    ];
   }
 
   getAll(){
