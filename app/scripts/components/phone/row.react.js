@@ -4,8 +4,7 @@ class PhoneRow extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
-        this.state.phone = props.phone;
+        this.state = {phone: props.phone};
     }
 
     render() {

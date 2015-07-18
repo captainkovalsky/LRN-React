@@ -7,9 +7,9 @@ class PhoneStore extends EventEmitter{
   constructor(){
     super();
     this._phones = [
-    {name: 'NEXUS', price: 299, attr: {color: 'red'}}, 
-    {name: 'АЙФОНІЙ', price: 699, attr: {color: 'blue'}},
-    {name: 'LUMIA 630', price: 69, attr: {color: 'green'}},
+      {name: 'NEXUS', price: 299, attr: {color: 'red'}}, 
+      {name: 'АЙФОНІЙ', price: 699, attr: {color: 'blue'}},
+      {name: 'LUMIA 630', price: 69, attr: {color: 'green'}},
     ];
   }
 
