@@ -3,36 +3,31 @@ import {Input} from 'react-bootstrap';
 
 class TextFilter extends React.Component{
 
-  constructor (props) {
-    super(props);
-    this.state = {};
-    this.state.value = '1';
+	constructor (props) {
+	super(props);
+	this.state = {value: ''};
+	this.handleChange = this.handleChange.bind(this);
+	}
 
-    this.handleChange = this.handleChange.bind(this);
-  }
+	validationState() {
+	    let length = this.state.value.length;
+	    switch(true){
+	    	case length > 10: return 'success';
+	    	case length > 5: return 'warning';
+	    	case length > 0: return 'error';
+	    	default: return 'error';
+	    }
+	}
 
-    validationState() {
-        let length = this.state.value.length;
-        switch(true){
-        	case length > 10: return 'success';
-        	case length > 5: return 'warning';
-        	case length > 0: return 'error';
-        	default: return 'error';
-        }
-    }
-
-  handleChange() {
-  	console.log('this.state', this.state);
-	this.state.value = this.refs.input.getValue();
-  }
+	handleChange() {
+		this.setState({value: this.refs.input.getValue()});
+	}
 
 	render () {
 	      return (
 	      	<div>
-	      	<p>{this.state.value}</p>
 	      	<Input
 		        type='text'
-		        value={this.state.value}
 		        placeholder='Enter text'
 		        label='Working example with validation'
 		        help='Validation is based on string length.'
@@ -42,8 +37,8 @@ class TextFilter extends React.Component{
 		        groupClassName='group-class'
 		        labelClassName='label-class'
 	        	onChange={this.handleChange} />
-        	</div>		
-    );
+	    	</div>		
+	);
 	}
 }
 
