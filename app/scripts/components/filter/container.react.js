@@ -11,17 +11,21 @@ class Filters extends React.Component{
     super(props);
 
     this._applyFiltersClick = this._applyFiltersClick.bind(this);
+    this._clearFilters = this._clearFilters.bind(this);
   }
 
   _onChange(){
   	console.log('change phone store');
   }
 
+  _clearFilters(){
+  	PhoneAction.clearFilters();
+  }
+
   _applyFiltersClick(){
   	console.log('aaply filters');
-  	let filterA = (phone) => true;
-  	let filterB = (phone) => true;
-  	PhoneAction.filterPhones(filterA, filterB );
+  	let filterA = (phone) => phone.name === 'NEXUS';
+  	PhoneAction.filterPhones(filterA);
   }
 
 	render () {
@@ -35,7 +39,8 @@ class Filters extends React.Component{
 					</Row>
 					<Row>
 						<Col md={12}>
-							<Button bsStyle='primary' onClick={this._applyFiltersClick}>Primary</Button>
+							<Button bsStyle='primary' onClick={this._applyFiltersClick}>Apply</Button>
+							<Button bsStyle='primary' onClick={this._clearFilters}>Clear</Button>
 						</Col>
 					</Row>
 				</Panel>

@@ -7,6 +7,7 @@ class TextFilter extends React.Component{
 	super(props);
 	this.state = {value: ''};
 	this.handleChange = this.handleChange.bind(this);
+
 	}
 
 	validationState() {
@@ -15,7 +16,7 @@ class TextFilter extends React.Component{
 	    	case length > 10: return 'success';
 	    	case length > 5: return 'warning';
 	    	case length > 0: return 'error';
-	    	default: return 'error';
+	    default: return 'error';
 	    }
 	}
 
@@ -26,19 +27,19 @@ class TextFilter extends React.Component{
 	render () {
 	      return (
 	      	<div>
-	      	<Input
-		        type='text'
-		        placeholder='Enter text'
-		        label='Working example with validation'
-		        help='Validation is based on string length.'
-		        bsStyle={this.validationState()}
-		        hasFeedback
-		        ref='input'
-		        groupClassName='group-class'
-		        labelClassName='label-class'
-	        	onChange={this.handleChange} />
+		      	<Input
+			        type='text'
+			        placeholder='Enter text'
+			        label='Working example with validation'
+			        help='Validation is based on string length.'
+			        bsStyle={this.validationState()}
+			        hasFeedback
+			        ref='input'
+			        groupClassName='group-class'
+			        labelClassName='label-class'
+		        	onChange={this.handleChange} />
 	    	</div>		
-	);
+				);
 	}
 }
 

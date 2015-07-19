@@ -1,26 +1,31 @@
 import AppDispatcher from '../dispatcher/dispatcher.js';
 import {EventEmitter} from 'events';
-import {FILTER_PHONE} from '../constants/constants.js';
+import {FILTER_PHONE, CLEAR_FILTERS} from '../constants/constants.js';
 
 
 var CHANGE_EVENT = 'CHANGE';
+var phones = [
+      {name: 'NEXUS', price: 299, attr: {color: 'red'}}, 
+      {name: 'Iphone', price: 699, attr: {color: 'blue'}},
+      {name: 'LUMIA 630', price: 69, attr: {color: 'green'}},
+    ];
 
 class PhoneStore extends EventEmitter{
 
   constructor(){
     super();
-    this._phones = [
-      {name: 'NEXUS', price: 299, attr: {color: 'red'}}, 
-      {name: 'Iphone', price: 699, attr: {color: 'blue'}},
-      {name: 'LUMIA 630', price: 69, attr: {color: 'green'}},
-    ];
+    this._phones = phones;
     
       AppDispatcher.register(payload => {
         let action = payload.action;
           switch (action.actionType) {
               case FILTER_PHONE:
-                  this.applyFilters(action.filter);
+                  this.applyFilters(action.filters);
                   break;
+              case CLEAR_FILTERS:
+                  this.clearFilters();
+                  break;
+
           }
           this.emitChange();
       });
@@ -30,10 +35,12 @@ class PhoneStore extends EventEmitter{
     return this._phones;
   }
 
+  clearFilters(){
+    this._phones = phones;
+  }
+
   applyFilters(filters){
-    console.log('filter phones by ', filters);
-    this._phones = [this._phones[0]];
-    console.log(this._phones);
+    this._phones = this._phones.filter(filters);
   }
 
   emitChange () {
@@ -47,18 +54,8 @@ class PhoneStore extends EventEmitter{
   removeChangeListener(callback){
     this.removeListener(CHANGE_EVENT, callback)
   }
-
 }
 
 var store = new PhoneStore;
-
-
-// AppDispatcher.register(function(action){
-//   switch(action.actionType){
-//     case ADDED_QUESTION:
-//       console.log('ADDED_QUESTION');
-//     break;
-//   }
-// });
 
 export default store;

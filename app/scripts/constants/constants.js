@@ -1,2 +1,4 @@
 const  FILTER_PHONE = 'FILTER_PHONE';
-export default {FILTER_PHONE};
+const  CLEAR_FILTERS = 'CLEAR_FILTERS';
+
+export default {FILTER_PHONE, CLEAR_FILTERS};
