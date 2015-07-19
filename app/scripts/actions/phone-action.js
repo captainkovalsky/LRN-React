@@ -1,4 +1,4 @@
-import {AppDispatcher} from '../dispatcher/dispatcher';
+import AppDispatcher from '../dispatcher/dispatcher';
 import {FILTER_PHONE} from '../constants/constants.js';
 
 class PhoneAction{

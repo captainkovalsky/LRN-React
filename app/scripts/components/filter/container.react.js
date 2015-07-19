@@ -1,5 +1,6 @@
 import React from 'react';
 import PhoneStore from '../../stores/phone-store.js'; //TODO: avoid
+import PhoneAction from '../../actions/phone-action.js'; //TODO: avoid
 import {Panel, Button, Row, Col} from 'react-bootstrap';
 
 import TextFilter from './text-filter.react';
@@ -12,11 +13,19 @@ class Filters extends React.Component{
     this._applyFiltersClick = this._applyFiltersClick.bind(this);
   }
 
+  _onChange(){
+  	console.log('change phone store');
+  }
+
+  componentWillMount(){
+      PhoneStore.addChangeListener(this._onChange);
+}
+
   _applyFiltersClick(){
   	console.log('aaply filters');
   	let filterA = (phone) => true;
   	let filterB = (phone) => true;
-  	PhoneStore.applyFilters(filterA, filterB );
+  	PhoneAction.filterPhones(filterA, filterB );
   }
 
 	render () {

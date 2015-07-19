@@ -11,9 +11,10 @@ class PhoneStore extends EventEmitter{
     super();
     this._phones = [
       {name: 'NEXUS', price: 299, attr: {color: 'red'}}, 
-      {name: 'АЙФОНІЙ', price: 699, attr: {color: 'blue'}},
+      {name: 'Iphone', price: 699, attr: {color: 'blue'}},
       {name: 'LUMIA 630', price: 69, attr: {color: 'green'}},
     ];
+    
       AppDispatcher.register(payload => {
           switch (payload.actionType) {
               case FILTER_PHONE:
