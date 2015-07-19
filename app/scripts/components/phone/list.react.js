@@ -15,6 +15,15 @@ class PhoneList extends React.Component{
     return (<PhoneRow phone={phoneModel}></PhoneRow>);
     }
 
+    _onChange(){
+      console.log('update phone store');
+       this.setState({phones: PhoneStore.getAll()});
+    }
+
+  componentWillMount(){
+      PhoneStore.addChangeListener(this._onChange.bind(this));
+}
+
     render () {
       var phoneRows = this.state.phones.map(this.renderPhoneRow);
       return (

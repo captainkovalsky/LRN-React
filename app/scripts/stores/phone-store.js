@@ -16,9 +16,10 @@ class PhoneStore extends EventEmitter{
     ];
     
       AppDispatcher.register(payload => {
-          switch (payload.actionType) {
+        let action = payload.action;
+          switch (action.actionType) {
               case FILTER_PHONE:
-                  this.applyFilters(payload.filter);
+                  this.applyFilters(action.filter);
                   break;
           }
           this.emitChange();
@@ -31,6 +32,8 @@ class PhoneStore extends EventEmitter{
 
   applyFilters(filters){
     console.log('filter phones by ', filters);
+    this._phones = [this._phones[0]];
+    console.log(this._phones);
   }
 
   emitChange () {

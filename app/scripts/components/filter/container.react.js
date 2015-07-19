@@ -17,10 +17,6 @@ class Filters extends React.Component{
   	console.log('change phone store');
   }
 
-  componentWillMount(){
-      PhoneStore.addChangeListener(this._onChange);
-}
-
   _applyFiltersClick(){
   	console.log('aaply filters');
   	let filterA = (phone) => true;
