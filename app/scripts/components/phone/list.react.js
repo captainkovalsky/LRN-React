@@ -8,8 +8,7 @@ class PhoneList extends React.Component{
 
   constructor (props) {
     super(props);
-    this.state = {};
-    this.state.phones = PhoneStore.getAll();
+    this.state = {phones: PhoneStore.getAll()};
   }
 
   renderPhoneRow (phoneModel) {
