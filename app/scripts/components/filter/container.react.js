@@ -23,8 +23,7 @@ class Filters extends React.Component{
   }
 
   _applyFiltersClick(){
-  	console.log('aaply filters');
-  	let filterA = (phone) => phone.name === 'NEXUS';
+  	let filterA = (phone) => phone.name === 'NEXUS'; //hardcode
   	PhoneAction.filterPhones(filterA);
   }
 

@@ -1,6 +1,6 @@
 import AppDispatcher from '../dispatcher/dispatcher.js';
 import {EventEmitter} from 'events';
-import {FILTER_PHONE, CLEAR_FILTERS} from '../constants/constants.js';
+import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES} from '../constants/constants.js';
 
 
 var CHANGE_EVENT = 'CHANGE';
@@ -25,10 +25,17 @@ class PhoneStore extends EventEmitter{
               case CLEAR_FILTERS:
                   this.clearFilters();
                   break;
+              case ORDER_PHONES:
+                  this.orderPhones(action.field);
+                  break;
 
           }
           this.emitChange();
       });
+  }
+
+  orderPhones(fieldName){
+    console.log('update state by order ', fieldName);
   }
 
   getAll(){

@@ -1,5 +1,5 @@
 import AppDispatcher from '../dispatcher/dispatcher';
-import {FILTER_PHONE, CLEAR_FILTERS} from '../constants/constants.js';
+import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES} from '../constants/constants.js';
 
 class PhoneAction{
 
@@ -13,6 +13,13 @@ filterPhones(filters) {
 clearFilters(){
 	AppDispatcher.handleViewAction({
 		actionType: CLEAR_FILTERS
+	});
+}
+
+changeOrderFor(name){
+	AppDispatcher.handleViewAction({
+		actionType: ORDER_PHONES,
+		field: name
 	});
 }
 }
