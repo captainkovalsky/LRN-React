@@ -13,6 +13,7 @@ class PhoneRow extends React.Component {
                     <td>{phone.name}</td>
                     <td>{phone.price}</td>
                     <td>{phone.attr.color}</td>
+                    <td>{phone.attr.hasWifi ? 'yes' : 'no'}</td>
                   </tr>
               );
   }

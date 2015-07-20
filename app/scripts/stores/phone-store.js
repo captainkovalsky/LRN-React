@@ -5,12 +5,12 @@ import _ from 'lodash'; //or lodash-compact ?
 
 var CHANGE_EVENT = 'CHANGE';
 var phones = [
-      {name: 'Alcatel', price: 34324, attr: {color: 'black'}},
-      {name: 'LUMIA 530', price: 65, attr: {color: 'green'}},
-      {name: 'Iphone', price: 699, attr: {color: 'blue'}},
-      {name: 'NEXUS', price: 299, attr: {color: 'red'}}, 
-      {name: 'LUMIA 630', price: 69, attr: {color: 'green'}},
-      {name: 'LUMIA 600', price: 34, attr: {color: 'green'}}
+      {name: 'Alcatel', price: 34324, attr: {color: 'black', hasWifi: true}},
+      {name: 'LUMIA 530', price: 65, attr: {color: 'green', hasWifi: false}},
+      {name: 'Iphone', price: 699, attr: {color: 'blue', hasWifi: false}},
+      {name: 'NEXUS', price: 299, attr: {color: 'red', hasWifi: true}}, 
+      {name: 'LUMIA 630', price: 69, attr: {color: 'green', hasWifi: true}},
+      {name: 'LUMIA 600', price: 34, attr: {color: 'green', hasWifi: false}}
     ];
 
 const ASC = 'ASC';
@@ -50,7 +50,7 @@ class PhoneStore extends EventEmitter{
   }
 
   _getMethodNameBy(fieldName){
-    return '_orderBy' + _.startCase(fieldName).replace(' ', '');
+    return '_orderBy' + _.startCase(fieldName).split(' ').join('');
   }
 
   _orderByName(phone){
@@ -60,6 +60,10 @@ class PhoneStore extends EventEmitter{
   _orderByPrice(phone){
     return phone.price;
 
+  }
+
+  _orderByAttrHasWifi(phone){
+    return phone.attr.hasWifi;
   }
 
   _orderByAttrColor(phone){
