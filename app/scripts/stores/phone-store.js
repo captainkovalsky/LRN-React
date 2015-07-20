@@ -2,13 +2,12 @@ import AppDispatcher from '../dispatcher/dispatcher.js';
 import {EventEmitter} from 'events';
 import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES} from '../constants/constants.js';
 import _ from 'lodash'; //or lodash-compact ?
-import Immutable from 'immutable';
 
 var CHANGE_EVENT = 'CHANGE';
 var phones = [
-      {name: 'NEXUS', price: 299, attr: {color: 'red'}}, 
       {name: 'Iphone', price: 699, attr: {color: 'blue'}},
-      {name: 'LUMIA 630', price: 69, attr: {color: 'green'}},
+      {name: 'NEXUS', price: 299, attr: {color: 'red'}}, 
+      {name: 'LUMIA 630', price: 69, attr: {color: 'green'}}
     ];
 
 const ASC = 'ASC';
@@ -18,7 +17,6 @@ class PhoneStore extends EventEmitter{
 
   constructor(){
     super();
-    // this._phones = phones;
     this._orders = {name: '', price: '', attr : {color: ''}};
     this._phones = phones;
 
@@ -56,7 +54,7 @@ class PhoneStore extends EventEmitter{
   }
 
   applyFilters(filters){
-    this._phones = this._phones.filter(filters);
+    this._phones = phones.filter(filters);
   }
 
   emitChange () {

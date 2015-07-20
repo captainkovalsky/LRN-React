@@ -3,12 +3,11 @@ import React from 'react';
 class PhoneRow extends React.Component {
 
     constructor(props) {
-        super(props);
-        this.state = {phone: props.phone};
+      super(props);
     }
 
     render() {
-        var phone = this.state.phone;
+      var phone = this.props.phone;
         return (
                   <tr>
                     <td>{phone.name}</td>

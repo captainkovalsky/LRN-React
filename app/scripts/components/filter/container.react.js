@@ -15,7 +15,6 @@ class Filters extends React.Component{
   }
 
   _onChange(){
-  	console.log('change phone store');
   }
 
   _clearFilters(){
@@ -23,7 +22,7 @@ class Filters extends React.Component{
   }
 
   _applyFiltersClick(){
-  	let filterA = (phone) => phone.name === 'NEXUS'; //hardcode
+  	let filterA = (phone) =>  phone.price === 299; //hardcode
   	PhoneAction.filterPhones(filterA);
   }
 

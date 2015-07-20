@@ -16,22 +16,26 @@ class PhoneList extends React.Component{
     return (<PhoneRow phone={phoneModel}></PhoneRow>);
     }
 
-    _onChange(){
-      this.setState({phones: PhoneStore.getAll()});
-    }
+  _onChange(){
+    var phones = PhoneStore.getAll();
+    this.setState({phones: phones});
+  }
 
   componentWillMount(){
       PhoneStore.addChangeListener(this._onChange.bind(this));
-}
+  }
 
     render () {
-      var phoneRows = this.state.phones.map(this.renderPhoneRow);
+      let rows = [];
+      for(let i = 0, max = this.state.phones.length; i < max; i++){
+        rows.push(this.renderPhoneRow(this.state.phones[i]));
+      }
       return (
               <Table responsive>
                 <thead>
                  <HeaderPhoneRow />
                 </thead> 
-                <tbody>{phoneRows}</tbody>
+                <tbody>{rows}</tbody>
               </Table>
             );
     }
