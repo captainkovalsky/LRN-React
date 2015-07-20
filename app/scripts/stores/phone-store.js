@@ -2,6 +2,7 @@ import AppDispatcher from '../dispatcher/dispatcher.js';
 import {EventEmitter} from 'events';
 import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES} from '../constants/constants.js';
 import _ from 'lodash'; //or lodash-compact ?
+import Immutable from 'immutable';
 
 var CHANGE_EVENT = 'CHANGE';
 var phones = [
@@ -17,9 +18,10 @@ class PhoneStore extends EventEmitter{
 
   constructor(){
     super();
-    this._phones = phones;
+    // this._phones = phones;
     this._orders = {name: '', price: '', attr : {color: ''}};
-    
+    this._phones = phones;
+
       AppDispatcher.register(payload => {
         let action = payload.action;
           switch (action.actionType) {

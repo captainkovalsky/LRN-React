@@ -17,8 +17,7 @@ class PhoneList extends React.Component{
     }
 
     _onChange(){
-      console.log('new phones ', PhoneStore.getAll());
-       this.setState({phones: PhoneStore.getAll()});
+      this.setState({phones: PhoneStore.getAll()});
     }
 
   componentWillMount(){
