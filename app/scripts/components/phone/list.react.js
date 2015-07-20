@@ -4,7 +4,6 @@ import {Table} from 'react-bootstrap';
 
 import PhoneRow from './row.react.js';
 import HeaderPhoneRow from './row-header.react.js';
-console.log('header ', HeaderPhoneRow);
 
 class PhoneList extends React.Component{
 
@@ -18,6 +17,7 @@ class PhoneList extends React.Component{
     }
 
     _onChange(){
+      console.log('new phones ', PhoneStore.getAll());
        this.setState({phones: PhoneStore.getAll()});
     }
 

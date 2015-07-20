@@ -16,7 +16,7 @@ class HeaderPhoneRow extends React.Component {
               <tr>
                 <th onClick={this._order.bind(this, 'name')}>name</th>
                 <th onClick={this._order.bind(this, 'price')}>price</th>
-                <th onClick={this._order.bind(this, 'color')}>color</th> 
+                <th onClick={this._order.bind(this, 'attr.color')}>color</th> 
               </tr>
               );
   }

@@ -1,7 +1,7 @@
 import AppDispatcher from '../dispatcher/dispatcher.js';
 import {EventEmitter} from 'events';
 import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES} from '../constants/constants.js';
-
+import _ from 'lodash'; //or lodash-compact ?
 
 var CHANGE_EVENT = 'CHANGE';
 var phones = [
@@ -10,11 +10,15 @@ var phones = [
       {name: 'LUMIA 630', price: 69, attr: {color: 'green'}},
     ];
 
+const ASC = 'ASC';
+const DESC = 'DESC';
+
 class PhoneStore extends EventEmitter{
 
   constructor(){
     super();
     this._phones = phones;
+    this._orders = {name: '', price: '', attr : {color: ''}};
     
       AppDispatcher.register(payload => {
         let action = payload.action;
@@ -35,7 +39,10 @@ class PhoneStore extends EventEmitter{
   }
 
   orderPhones(fieldName){
-    console.log('update state by order ', fieldName);
+    let fieldOrder = _.get(this._orders, fieldName);
+    let newOrder = fieldOrder === ASC ? DESC : ASC;
+    _.set(this._orders, fieldName, newOrder);
+    this._phones = _.sortByOrder(this._phones, [fieldName], [newOrder.toLowerCase()]);
   }
 
   getAll(){
