@@ -24,7 +24,7 @@ class PhoneStore extends EventEmitter{
         let action = payload.action;
           switch (action.actionType) {
               case FILTER_PHONE:
-                  this.applyFilters(action.filters);
+                  this.applyFilter(action.filters);
                   break;
               case CLEAR_FILTERS:
                   this.clearFilters();
@@ -53,8 +53,13 @@ class PhoneStore extends EventEmitter{
     this._phones = phones;
   }
 
-  applyFilters(filters){
-    this._phones = phones.filter(filters);
+  applyFilter(filters){
+    console.log('apply filter', filters.name);
+
+    this._phones = _.filter(phones, function(phone){
+      var hasIn = _.get(phone, filters.name.target).toUpperCase().indexOf(filters.name.value.toUpperCase())  > -1;
+      return hasIn;
+    });
   }
 
   emitChange () {

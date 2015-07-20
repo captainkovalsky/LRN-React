@@ -12,9 +12,16 @@ class Filters extends React.Component{
 
     this._applyFiltersClick = this._applyFiltersClick.bind(this);
     this._clearFilters = this._clearFilters.bind(this);
+    this._handleFilterChange = this._handleFilterChange.bind(this);
+
+    this.filters = {};
   }
 
   _onChange(){
+  }
+
+  _handleFilterChange(filterMeta){
+  	this.filters[filterMeta.target] = filterMeta;
   }
 
   _clearFilters(){
@@ -22,8 +29,7 @@ class Filters extends React.Component{
   }
 
   _applyFiltersClick(){
-  	let filterA = (phone) =>  phone.price === 299; //hardcode
-  	PhoneAction.filterPhones(filterA);
+  	PhoneAction.filterPhones(this.filters);
   }
 
 	render () {
@@ -33,7 +39,7 @@ class Filters extends React.Component{
 						<Col md={12}>Panel filters</Col>
 					</Row>
 					<Row>
-						<Col md={12}><TextFilter  /></Col>
+						<Col md={12}><TextFilter target="name" onChange={this._handleFilterChange} /></Col>
 					</Row>
 					<Row>
 						<Col md={12}>
