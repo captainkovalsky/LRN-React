@@ -12,6 +12,7 @@ class TextFilter extends React.Component{
 	}
 
 	validationState() {
+		return 'success';
 	    let length = this.state.value.length;
 	    switch(true){
 	    	case length > 10: return 'success';

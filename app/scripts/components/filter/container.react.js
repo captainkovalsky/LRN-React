@@ -4,6 +4,7 @@ import PhoneAction from '../../actions/phone-action.js'; //TODO: avoid
 import {Panel, Button, Row, Col} from 'react-bootstrap';
 
 import TextFilter from './text-filter.react';
+import RangeFilter from './range-filter.react';
 
 class Filters extends React.Component{
 
@@ -40,6 +41,9 @@ class Filters extends React.Component{
 					</Row>
 					<Row>
 						<Col md={12}><TextFilter target="name" onChange={this._handleFilterChange} /></Col>
+					</Row>
+					<Row>
+						<Col md={12}><RangeFilter /></Col>
 					</Row>
 					<Row>
 						<Col md={12}>

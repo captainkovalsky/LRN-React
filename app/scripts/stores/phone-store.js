@@ -5,9 +5,12 @@ import _ from 'lodash'; //or lodash-compact ?
 
 var CHANGE_EVENT = 'CHANGE';
 var phones = [
+      {name: 'Alcatel', price: 34324, attr: {color: 'black'}},
+      {name: 'LUMIA 530', price: 65, attr: {color: 'green'}},
       {name: 'Iphone', price: 699, attr: {color: 'blue'}},
       {name: 'NEXUS', price: 299, attr: {color: 'red'}}, 
-      {name: 'LUMIA 630', price: 69, attr: {color: 'green'}}
+      {name: 'LUMIA 630', price: 69, attr: {color: 'green'}},
+      {name: 'LUMIA 600', price: 34, attr: {color: 'green'}}
     ];
 
 const ASC = 'ASC';
@@ -40,9 +43,30 @@ class PhoneStore extends EventEmitter{
 
   orderPhones(fieldName){
     let fieldOrder = _.get(this._orders, fieldName);
-    let newOrder = fieldOrder === ASC ? DESC : ASC;
+    let newOrder = fieldOrder === DESC ? ASC : DESC;
     _.set(this._orders, fieldName, newOrder);
-    this._phones = _.sortByOrder(this._phones, [fieldName], [newOrder.toLowerCase()]);
+    let sortedMethod = this[this._getMethodNameBy(fieldName)];
+    this._phones = _.sortByOrder(this._phones, sortedMethod, newOrder.toLowerCase()); //TODO: should be changed
+  }
+
+  _getMethodNameBy(fieldName){
+    return '_orderBy' + _.startCase(fieldName).replace(' ', '');
+  }
+
+  _orderByName(phone){
+    return phone.name.toLowerCase();
+  }
+
+  _orderByPrice(phone){
+    return phone.price;
+
+  }
+
+  _orderByAttrColor(phone){
+    let orderArray = ['green', 'blue', 'red'];
+    let color = phone.attr.color;
+    let code = orderArray.indexOf(color);
+    return code === -1 ? 9999 : code;
   }
 
   getAll(){
@@ -54,7 +78,8 @@ class PhoneStore extends EventEmitter{
   }
 
   applyFilter(filters){
-    console.log('apply filter', filters.name);
+    for(var filterName in filters){
+    }
 
     this._phones = _.filter(phones, function(phone){
       var hasIn = _.get(phone, filters.name.target).toUpperCase().indexOf(filters.name.value.toUpperCase())  > -1;
