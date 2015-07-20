@@ -73,6 +73,15 @@ class PhoneStore extends EventEmitter{
     return code === -1 ? 9999 : code;
   }
 
+  _fillterByName(phone){
+
+  }
+
+  _buildFilterFunction(filterMeta){
+    console.log('build filter functon for phone by ', filterMeta);
+
+  }
+
   getAll(){
     return this._phones;
   }
@@ -82,13 +91,31 @@ class PhoneStore extends EventEmitter{
   }
 
   applyFilter(filters){
-    for(var filterName in filters){
-    }
+    console.log('filters ', filters);
+   
+    // var f1 = function(phone){
+    //   return phone.price >= 60;
+    // };
 
-    this._phones = _.filter(phones, function(phone){
-      var hasIn = _.get(phone, filters.name.target).toUpperCase().indexOf(filters.name.value.toUpperCase())  > -1;
-      return hasIn;
-    });
+    // var f2 = function(phone){
+    //   return phone.price <= 70;
+    // };
+
+
+    // var f3 = function(phone){
+    //   return phone.name === '1';
+    // };
+
+    // var compose = function(...filtersFunc){
+    //   return function(phone){
+    //     return _.every(filtersFunc, filterFunc => filterFunc.call(null, phone) );
+    //   }
+    // };
+
+    // this._phones = _.filter(phones, function(phone){
+    //   var hasIn = _.get(phone, filters.name.target).toUpperCase().indexOf(filters.name.value.toUpperCase())  > -1;
+    //   return hasIn;
+    // });
   }
 
   emitChange () {
