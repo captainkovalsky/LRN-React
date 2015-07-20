@@ -73,12 +73,27 @@ class PhoneStore extends EventEmitter{
     return code === -1 ? 9999 : code;
   }
 
-  _fillterByName(phone){
+  _checkFilterForAcitve(filterMeta){
+   switch(filterMeta.type){
+      case 'bool':  return filterMeta.value === true;
+      case 'text': return filterMeta.value.length > 0;
+      default: return false;
+    }
 
   }
 
   _buildFilterFunction(filterMeta){
-    console.log('build filter functon for phone by ', filterMeta);
+    switch(filterMeta.type){
+      case 'bool': return function(phone){
+        return _.get(phone, filterMeta.target) === filterMeta.value;
+      }
+      case 'text': return function(phone){
+        return _.get(phone, filterMeta.target).toUpperCase().indexOf(filterMeta.value.toUpperCase()) > -1;
+      }
+      default: return function(phone){
+        return true;
+      }
+    }
 
   }
 
@@ -91,7 +106,30 @@ class PhoneStore extends EventEmitter{
   }
 
   applyFilter(filters){
-    console.log('filters ', filters);
+    
+
+    if(_.isEmpty(filters)){
+      this._phones = phones;
+      return;
+    }
+
+    let funcs = [];
+
+    for(var name in filters){
+      if(this._checkFilterForAcitve(filters[name])){ //todo: expand if to filter over object keys
+        funcs.push(this._buildFilterFunction(filters[name]));
+      }
+    }
+
+    if(_.isEmpty(funcs)){
+      this._phones = phones;
+      return;
+    }
+
+    var compose = filtersFunc => phone => _.every(filtersFunc, f => f.call(null, phone));
+
+    var commonFilterFunc = compose(funcs);
+
    
     // var f1 = function(phone){
     //   return phone.price >= 60;
@@ -106,16 +144,8 @@ class PhoneStore extends EventEmitter{
     //   return phone.name === '1';
     // };
 
-    // var compose = function(...filtersFunc){
-    //   return function(phone){
-    //     return _.every(filtersFunc, filterFunc => filterFunc.call(null, phone) );
-    //   }
-    // };
 
-    // this._phones = _.filter(phones, function(phone){
-    //   var hasIn = _.get(phone, filters.name.target).toUpperCase().indexOf(filters.name.value.toUpperCase())  > -1;
-    //   return hasIn;
-    // });
+    this._phones = _.filter(phones, commonFilterFunc);
   }
 
   emitChange () {

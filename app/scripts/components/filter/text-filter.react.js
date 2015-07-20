@@ -23,7 +23,7 @@ class TextFilter extends React.Component{
 	}
 
 	handleChange() {
-		this.props.onChange({target: this.props.target, value: this.refs.input.getValue()});
+		this.props.onChange({type: "text", target: this.props.target, value: this.refs.input.getValue()});
 		this.setState({value: this.refs.input.getValue()});
 	}
 

@@ -43,7 +43,7 @@ class Filters extends React.Component{
 						<Col md={12}><TextFilter target="name" onChange={this._handleFilterChange} /></Col>
 					</Row>
 					<Row>
-						<Col md={12}><CheckFilter label="Has wifi" target="hasWifi" onChange={this._handleFilterChange} /></Col>
+						<Col md={12}><CheckFilter label="Has wifi" target="attr.hasWifi" onChange={this._handleFilterChange} /></Col>
 					</Row>
 					<Row>
 						<Col md={12}>

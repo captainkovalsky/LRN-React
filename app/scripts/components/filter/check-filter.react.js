@@ -12,7 +12,7 @@ class CheckFilter extends React.Component{
 
 	handleChange() {
 		console.log('handle check filter change ',this.refs.input.getChecked() );
-		this.props.onChange({target: this.props.target, value: this.refs.input.getChecked()});
+		this.props.onChange({type: "bool", target: this.props.target, value: this.refs.input.getChecked()});
 	}
 
 	render () {
