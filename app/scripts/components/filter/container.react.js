@@ -6,10 +6,13 @@ import {Panel, Button, Row, Col} from 'react-bootstrap';
 import TextFilter from './text-filter.react';
 import CheckFilter from './check-filter.react';
 
+const empty = {name: {value: ''}, wifi: {checked: false}}; //imm
+
 class Filters extends React.Component{
 
   constructor (props) {
     super(props);
+    this.state = empty;
 
     this._applyFiltersClick = this._applyFiltersClick.bind(this);
     this._clearFilters = this._clearFilters.bind(this);
@@ -18,14 +21,13 @@ class Filters extends React.Component{
     this.filters = {};
   }
 
-  _onChange(){
-  }
-
   _handleFilterChange(filterMeta){
   	this.filters[filterMeta.target] = filterMeta;
   }
 
   _clearFilters(){
+  	this.setState(empty);
+  	this.filters = {};
   	PhoneAction.clearFilters();
   }
 
@@ -40,10 +42,10 @@ class Filters extends React.Component{
 						<Col md={12}>Panel filters</Col>
 					</Row>
 					<Row>
-						<Col md={12}><TextFilter target="name" onChange={this._handleFilterChange} /></Col>
+						<Col md={12}><TextFilter value={this.state.name.value} target="name" onChange={this._handleFilterChange} /></Col>
 					</Row>
 					<Row>
-						<Col md={12}><CheckFilter label="Has wifi" target="attr.hasWifi" onChange={this._handleFilterChange} /></Col>
+						<Col md={12}><CheckFilter checked={this.state.wifi.checked} label="Has wifi" target="attr.hasWifi" onChange={this._handleFilterChange} /></Col>
 					</Row>
 					<Row>
 						<Col md={12}>

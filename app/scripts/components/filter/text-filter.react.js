@@ -5,10 +5,13 @@ class TextFilter extends React.Component{
 
 	constructor (props) {
 	super(props);
-	console.log(this.props);
-	this.state = {value: ''};
+	this.state = {value: this.props.value};
 	this.handleChange = this.handleChange.bind(this);
 
+	}
+
+	componentWillReceiveProps(nextProps){
+		this.setState({value: nextProps.value});
 	}
 
 	validationState() {
@@ -23,8 +26,10 @@ class TextFilter extends React.Component{
 	}
 
 	handleChange() {
-		this.props.onChange({type: "text", target: this.props.target, value: this.refs.input.getValue()});
-		this.setState({value: this.refs.input.getValue()});
+		let val = this.refs.input.getValue();
+		console.log('value: ', val);
+		this.setState({value: val});
+		this.props.onChange({type: "text", target: this.props.target, value: val});
 	}
 
 	render () {
@@ -32,6 +37,7 @@ class TextFilter extends React.Component{
 	      	<div>
 		      	<Input
 			        type='text'
+			        value={this.state.value}
 			        placeholder='Enter text'
 			        label='Working example with validation'
 			        help='Validation is based on string length.'
