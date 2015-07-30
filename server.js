@@ -1,0 +1,1 @@
+http-server ./dist -a  104.131.159.56  -p 3333
