@@ -76,6 +76,11 @@ gulp.task('buildScripts', function() {
         browserify(sourceFile)
         .transform(babelify)
         .bundle()
+        .on("error", 
+            function (err) { 
+                console.log("Error : " + err.message); 
+                 this.emit('end');
+            })
         .pipe(source(destFileName))
         .pipe(gulp.dest('dist/scripts'));
 });
