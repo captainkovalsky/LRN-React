@@ -1,6 +1,6 @@
 import AppDispatcher from '../dispatcher/dispatcher';
 import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES} from '../constants/constants.js';
-
+.......
 class PhoneAction{
 
 filterPhones(filters) {
