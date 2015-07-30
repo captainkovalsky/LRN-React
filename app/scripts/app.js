@@ -4,6 +4,8 @@ import {Grid, Row, Col} from 'react-bootstrap';
 import PhoneList from './components/phone/list.react';
 import Filter from './components/filter/container.react';
 
+// nvbnvbnvbn import gbjkdfglkdfg dgg use from const fgsdgfs fdsf; babelify doesn't throw error in it. IT'S FUCKING SHIT.
+
 var mountNode = document.getElementById("content");
 
 React.render(
