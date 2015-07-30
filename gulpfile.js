@@ -72,13 +72,11 @@ function rebundle() {
 gulp.task('scripts', rebundle);
 
 gulp.task('buildScripts', function() {
-    return
-        browserify(sourceFile)
-        .transform(babelify)
-        .bundle()
-        .on('error', function (err) { console.log('Error : ' + err.message); }) //fucking shit 
-        .pipe(source(destFileName))
-        .pipe(gulp.dest('dist/scripts'));
+return browserify({ entries: sourceFile })
+      .transform(babelify)
+      .bundle()
+      .pipe(source(destFileName))
+      .pipe(gulp.dest(destFolder));
 });
 
 // HTML
