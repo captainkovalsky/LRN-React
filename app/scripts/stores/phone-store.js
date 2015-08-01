@@ -1,8 +1,9 @@
 import AppDispatcher from '../dispatcher/dispatcher.js';
 import {EventEmitter} from 'events';
 import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES} from '../constants/constants.js';
+import PhoneSorter from '../models/phone-sorter.js';
 import _ from 'lodash'; //or lodash-compact ?
-
+console.log('phone sorter: ', PhoneSorter);
 var CHANGE_EVENT = 'CHANGE';
 var phones = [
       {name: 'Alcatel', price: 34324, attr: {color: 'black', hasWifi: true}},
@@ -13,15 +14,14 @@ var phones = [
       {name: 'LUMIA 600', price: 34, attr: {color: 'green', hasWifi: false}}
     ];
 
-const ASC = 'ASC';
-const DESC = 'DESC';
-
 class PhoneStore extends EventEmitter{
 
   constructor(){
     super();
-    this._orders = {name: '', price: '', attr : {color: ''}};
     this._phones = phones;
+
+    this.sorter = new PhoneSorter();
+    this._orders = this.sorter.getOrder();
 
       AppDispatcher.register(payload => {
         let action = payload.action;
@@ -41,38 +41,11 @@ class PhoneStore extends EventEmitter{
       });
   }
 
-  orderPhones(fieldName){
-    let fieldOrder = _.get(this._orders, fieldName);
-    let newOrder = fieldOrder === DESC ? ASC : DESC;
-    _.set(this._orders, fieldName, newOrder);
-    let sortedMethod = this[this._getMethodNameBy(fieldName)];
-    this._phones = _.sortByOrder(this._phones, sortedMethod, newOrder.toLowerCase()); //TODO: should be changed
+  orderPhones (byField){
+    this._phones = this.sorter.order(this._phones, byField);
   }
 
-  _getMethodNameBy(fieldName){
-    return '_orderBy' + _.startCase(fieldName).split(' ').join('');
-  }
-
-  _orderByName(phone){
-    return phone.name.toLowerCase();
-  }
-
-  _orderByPrice(phone){
-    return phone.price;
-
-  }
-
-  _orderByAttrHasWifi(phone){
-    return phone.attr.hasWifi;
-  }
-
-  _orderByAttrColor(phone){
-    let orderArray = ['green', 'blue', 'red'];
-    let color = phone.attr.color;
-    let code = orderArray.indexOf(color);
-    return code === -1 ? 9999 : code;
-  }
-
+  
   _checkFilterForAcitve(filterMeta){
    switch(filterMeta.type){
       case 'bool':  return filterMeta.value === true;
@@ -115,8 +88,9 @@ class PhoneStore extends EventEmitter{
 
     let funcs = [];
 
+
     for(var name in filters){
-      if(this._checkFilterForAcitve(filters[name])){ //todo: expand if to filter over object keys
+      if(this._checkFilterForAcitve(filters[name])){
         funcs.push(this._buildFilterFunction(filters[name]));
       }
     }
@@ -129,21 +103,6 @@ class PhoneStore extends EventEmitter{
     var compose = filtersFunc => phone => _.every(filtersFunc, f => f.call(null, phone));
 
     var commonFilterFunc = compose(funcs);
-
-   
-    // var f1 = function(phone){
-    //   return phone.price >= 60;
-    // };
-
-    // var f2 = function(phone){
-    //   return phone.price <= 70;
-    // };
-
-
-    // var f3 = function(phone){
-    //   return phone.name === '1';
-    // };
-
 
     this._phones = _.filter(phones, commonFilterFunc);
   }
