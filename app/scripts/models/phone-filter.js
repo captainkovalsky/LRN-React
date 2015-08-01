@@ -3,6 +3,52 @@ class PhoneFilter {
 
     construct(){
         this._filters = [];
+        this.nameFilter = {
+            value:'',
+            target: 'name',
+            isActive() {
+                return this._filter.value === true
+            },
+            filter(phone) {
+                 return _.get(phone, this.target).toUpperCase().indexOf(this.value.toUpperCase()) > -1;
+            }
+        };
+
+        //pseudo code
+        /*
+        this.wifiFilter = buildLogicFilter(target);
+        var buildLogicFilter = (){
+            var wifiFilter = new LogicFilter(target);
+            return wifiFilter;
+        };
+        */
+
+
+        this.wifiFilter = {
+            value: null,
+            target: 'attr.hasWifi',
+            isActive() { //the save as wifi
+                return this.value === true;
+            },
+
+            filter(phone){
+                return _.get(phone, this.target) === this.value;
+            }
+        };
+
+        this.gpsFilter = {
+            value: null,
+            target: 'attr.hasGps',
+
+            isActive() { //the same as wifiFilter
+                return this.value === true;
+            },
+
+            filter(phone){
+                return _.get(phone, this.target) === this.value;
+            }
+        };
+
     }
 
     setFilters(filters){
