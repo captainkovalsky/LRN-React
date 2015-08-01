@@ -2,8 +2,11 @@ import AppDispatcher from '../dispatcher/dispatcher.js';
 import {EventEmitter} from 'events';
 import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES} from '../constants/constants.js';
 import PhoneSorter from '../models/phone-sorter.js';
+import PhoneFilter from '../models/phone-filter.js';
+
 import _ from 'lodash'; //or lodash-compact ?
-console.log('phone sorter: ', PhoneSorter);
+
+console.log('phone filter ', PhoneFilter);
 var CHANGE_EVENT = 'CHANGE';
 var phones = [
       {name: 'Alcatel', price: 34324, attr: {color: 'black', hasWifi: true}},
@@ -22,6 +25,8 @@ class PhoneStore extends EventEmitter{
 
     this.sorter = new PhoneSorter();
     this._orders = this.sorter.getOrder();
+
+    this.filter = new PhoneFilter();
 
       AppDispatcher.register(payload => {
         let action = payload.action;
@@ -79,6 +84,7 @@ class PhoneStore extends EventEmitter{
   }
 
   applyFilter(filters){
+    this.filter.setFilters(filters);
     
 
     if(_.isEmpty(filters)){
