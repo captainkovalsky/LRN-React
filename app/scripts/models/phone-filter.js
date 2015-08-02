@@ -14,8 +14,9 @@ class PhoneFilter {
         this.clearFilters();
         for (var name in filters) {
             let filterObj = this._buildFilter(filters[name]);
+            
             if(filterObj.isActive()){
-                this._filters.push();
+                this._filters.push(filterObj);
             }
         }
     }
@@ -71,6 +72,7 @@ class PhoneFilter {
 
         applyFilters(phones) {
             let isEmptyFilters = this._filters.length === 0;
+
             if(isEmptyFilters){
                 return phones;
             }

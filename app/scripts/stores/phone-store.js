@@ -6,7 +6,7 @@ import PhoneFilter from '../models/phone-filter.js';
 
 import _ from 'lodash'; //or lodash-compact ?
 
-console.log('phone filter ', PhoneFilter);
+
 var CHANGE_EVENT = 'CHANGE';
 var phones = [
       {name: 'Alcatel', price: 34324, attr: {color: 'black', hasWifi: true}},
@@ -23,7 +23,7 @@ class PhoneStore extends EventEmitter{
     super();
     this._phones = phones;
 
-    this.filter = new PhoneFilter();
+    this.filter = new PhoneFilter(); //maybe phones should be injected into PhoneFilter and/or to PhoneSorter ??
     this.sorter = new PhoneSorter();
     this._orders = this.sorter.getOrder();
 
@@ -39,7 +39,6 @@ class PhoneStore extends EventEmitter{
               case ORDER_PHONES:
                   this.orderPhones(action.field);
                   break;
-
           }
           this.emitChange();
       });
@@ -59,33 +58,7 @@ class PhoneStore extends EventEmitter{
 
   applyFilter(filters){
     this.filter.setFilters(filters);
-    let phones = this.filter.applyFilters(this._phones);
-    return;
-
-    // if(_.isEmpty(filters)){
-    //   this._phones = phones;
-    //   return;
-    // }
-
-    // let funcs = [];
-
-
-    // for(var name in filters){
-    //   if(this._checkFilterForAcitve(filters[name])){
-    //     funcs.push(this._buildFilterFunction(filters[name]));
-    //   }
-    // }
-
-    // if(_.isEmpty(funcs)){
-    //   this._phones = phones;
-    //   return;
-    // }
-
-    // var compose = filtersFunc => phone => _.every(filtersFunc, f => f.call(null, phone));
-
-    // var commonFilterFunc = compose(funcs);
-
-    // this._phones = _.filter(phones, commonFilterFunc);
+    this._phones = this.filter.applyFilters(phones);
   }
 
   emitChange () {
