@@ -3,7 +3,6 @@ import Router from 'react-router';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 
 import PhoneApp from './components/phone/phone-app.react';
-// let phoneApp = new PhoneApp;
 
 class App extends React.Component{
 	constructor (props){
@@ -12,28 +11,35 @@ class App extends React.Component{
 
 	render(){
 		return (
-		      <div>
-		        <header>
-		          <ul>
-		            // <li><Link to="app">Dashboard</Link></li>
-		            // <li><Link to="inbox">Inbox</Link></li>
-		            // <li><Link to="calendar">Calendar</Link></li>
-		          </ul>
-		          Logged in as Jane
-		        </header>
+			<div>
+		        <div class="container">
+		            <div class="header">
+		                <ul class="nav nav-pills pull-right">
+		                	<li>
+		                		<Link to="app">Home</Link>
+		                		<Link to="phoneApp">phoneApp</Link>
+		                	</li>
+		                </ul>
+		                <h3 class="text-muted">LRN React</h3>
+		            </div>
+		            <div id="content" class="row marketing"></div>
+        		</div>
 
-		        {/* this is the important part */}
+	            <div class="footer">
+	                <p>♥ from the Yeoman team</p>
+	            </div>
 		        <RouteHandler/>
-		      </div>
+	        </div>	
 		    );
 	}
 }
 
-var routes = (
+let routes = (
   <Route name="app" path="/" handler={App}>
+  	<Route name="phoneApp" path="/phones" handler={PhoneApp}/>
   </Route>
 );
 
 Router.run(routes, function (Handler) {
-  React.render(<Handler/>, document.body);
+   React.render(<Handler/>, document.body)
 });
