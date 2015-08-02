@@ -11,6 +11,7 @@
     "lodash": "^3.10.0",
     "node-simple-static-server": "^1.1.0",
     "react-bootstrap": "^0.23.7",
+    "react-router": "^0.13.3",
     "react-tools": "^0.13.0-beta.2",
     "stackup": "^1.0.1"
   },

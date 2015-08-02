@@ -1,22 +1,39 @@
 import React from 'react';
-import {Grid, Row, Col} from 'react-bootstrap';
+import Router from 'react-router';
+import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 
-import PhoneList from './components/phone/list.react';
-import Filter from './components/filter/container.react';
+import PhoneApp from './components/phone/phone-app.react';
+// let phoneApp = new PhoneApp;
 
-// nvbnvbnvbn import gbjkdfglkdfg dgg use from const fgsdgfs fdsf; babelify doesn't throw error in it. IT'S FUCKING SHIT.
+class App extends React.Component{
+	constructor (props){
+		super(props);
+	}
 
-var mountNode = document.getElementById("content");
+	render(){
+		return (
+		      <div>
+		        <header>
+		          <ul>
+		            // <li><Link to="app">Dashboard</Link></li>
+		            // <li><Link to="inbox">Inbox</Link></li>
+		            // <li><Link to="calendar">Calendar</Link></li>
+		          </ul>
+		          Logged in as Jane
+		        </header>
 
-React.render(
-	<Grid>
-		<Row>
-			<Col xs={6} md={4}>
-				<Filter></Filter>
-			</Col>
-			<Col xs={12} md={8}>
-				<PhoneList></PhoneList>
-			</Col>
-		</Row>
-	</Grid>
-	, mountNode);
+		        {/* this is the important part */}
+		        <RouteHandler/>
+		      </div>
+		    );
+	}
+}
+
+var routes = (
+  <Route name="app" path="/" handler={App}>
+  </Route>
+);
+
+Router.run(routes, function (Handler) {
+  React.render(<Handler/>, document.body);
+});
