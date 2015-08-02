@@ -1,6 +1,9 @@
 import React from 'react';
 import Router from 'react-router';
+
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
+import { NavItem, Nav } from 'react-bootstrap';
+import { NavItemLink } from 'react-router-bootstrap';
 
 import PhoneApp from './components/phone/phone-app.react';
 
@@ -14,12 +17,10 @@ class App extends React.Component{
 			<div>
 		        <div class="container">
 		            <div class="header">
-		                <ul class="nav nav-pills pull-right">
-		                	<li>
-		                		<Link to="app">Home</Link>
-		                		<Link to="phoneApp">phoneApp</Link>
-		                	</li>
-		                </ul>
+						<Nav bsStyle='pills'>
+							<NavItemLink to="app">Home</NavItemLink>
+							<NavItemLink to="phoneApp">Phone App</NavItemLink>
+						</Nav>
 		                <h3 class="text-muted">LRN React</h3>
 		            </div>
 		            <div id="content" class="row marketing"></div>
