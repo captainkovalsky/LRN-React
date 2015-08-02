@@ -27,6 +27,11 @@ class PhoneList extends React.Component{
 
     render () {
       let rows = [];
+      if(this.state.phones.length === 0){
+        return (
+          <h2> There are no items. </h2>
+          );
+      }
       for(let i = 0, max = this.state.phones.length; i < max; i++){
         rows.push(this.renderPhoneRow(this.state.phones[i]));
       }
