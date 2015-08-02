@@ -23,10 +23,9 @@ class PhoneStore extends EventEmitter{
     super();
     this._phones = phones;
 
+    this.filter = new PhoneFilter();
     this.sorter = new PhoneSorter();
     this._orders = this.sorter.getOrder();
-
-    this.filter = new PhoneFilter();
 
       AppDispatcher.register(payload => {
         let action = payload.action;
@@ -50,31 +49,6 @@ class PhoneStore extends EventEmitter{
     this._phones = this.sorter.order(this._phones, byField);
   }
 
-  
-  _checkFilterForAcitve(filterMeta){
-   switch(filterMeta.type){
-      case 'bool':  return filterMeta.value === true;
-      case 'text': return filterMeta.value.length > 0;
-      default: return false;
-    }
-
-  }
-
-  _buildFilterFunction(filterMeta){
-    switch(filterMeta.type){
-      case 'bool': return function(phone){
-        return _.get(phone, filterMeta.target) === filterMeta.value;
-      }
-      case 'text': return function(phone){
-        return _.get(phone, filterMeta.target).toUpperCase().indexOf(filterMeta.value.toUpperCase()) > -1;
-      }
-      default: return function(phone){
-        return true;
-      }
-    }
-
-  }
-
   getAll(){
     return this._phones;
   }
@@ -85,32 +59,33 @@ class PhoneStore extends EventEmitter{
 
   applyFilter(filters){
     this.filter.setFilters(filters);
-    
+    let phones = this.filter.applyFilters(this._phones);
+    return;
 
-    if(_.isEmpty(filters)){
-      this._phones = phones;
-      return;
-    }
+    // if(_.isEmpty(filters)){
+    //   this._phones = phones;
+    //   return;
+    // }
 
-    let funcs = [];
+    // let funcs = [];
 
 
-    for(var name in filters){
-      if(this._checkFilterForAcitve(filters[name])){
-        funcs.push(this._buildFilterFunction(filters[name]));
-      }
-    }
+    // for(var name in filters){
+    //   if(this._checkFilterForAcitve(filters[name])){
+    //     funcs.push(this._buildFilterFunction(filters[name]));
+    //   }
+    // }
 
-    if(_.isEmpty(funcs)){
-      this._phones = phones;
-      return;
-    }
+    // if(_.isEmpty(funcs)){
+    //   this._phones = phones;
+    //   return;
+    // }
 
-    var compose = filtersFunc => phone => _.every(filtersFunc, f => f.call(null, phone));
+    // var compose = filtersFunc => phone => _.every(filtersFunc, f => f.call(null, phone));
 
-    var commonFilterFunc = compose(funcs);
+    // var commonFilterFunc = compose(funcs);
 
-    this._phones = _.filter(phones, commonFilterFunc);
+    // this._phones = _.filter(phones, commonFilterFunc);
   }
 
   emitChange () {
