@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import {SELECTED_ALL} from '../constants/constants.js';
+
 class PhoneFilter {
 
     constructor() {
@@ -32,6 +34,10 @@ class PhoneFilter {
                 return function() {
                     return this.value.length > 0
                 };
+            case 'multi':
+                return function(){
+                    return this.value !== SELECTED_ALL && this.value.length > 0;
+                };
             default:
                 return () => false;
         }
@@ -46,7 +52,10 @@ class PhoneFilter {
             case 'text':
                 return function(phone) {
                     return _.get(phone, this.target).toUpperCase().indexOf(this.value.toUpperCase()) !== -1;
-                   
+                }
+            case 'multi':
+                return function(phone){
+                    return this.value.indexOf(_.get(phone, this.target)) !== -1;
                 }
             default: return () => true;
         }

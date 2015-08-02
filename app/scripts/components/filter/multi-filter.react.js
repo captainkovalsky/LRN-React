@@ -1,45 +1,35 @@
 import React from 'react';
 import {Input} from 'react-bootstrap';
+import {SELECTED_ALL} from '../../constants/constants.js';
 
 class MultiFilter extends React.Component{
 
 	constructor (props) {
-	super(props);
-	this.state = {values: this.props.values};
-	this.handleChange = this.handleChange.bind(this);
-
+		super(props);
+		this.handleChange = this.handleChange.bind(this);
 	}
 
-	componentWillReceiveProps(nextProps){
-		this.setState({values: nextProps.values});
-	}
 
-	renderOptions(){
-		return this.state.values.map(m => (<option value={m}>{m}</option>));
+	renderOptions(selectAll = false){
+		let items = this.props.values.map(m => (<option value={m}>{m}</option>));
+		
+		if(selectAll){
+			items.unshift((<option value={SELECTED_ALL}>All</option>));
+		}
+
+		return items;
 	}
 
 	handleChange() {
 		let val = this.refs.input.getValue();
-		this.setState({values: val});
+		if(val.indexOf(SELECTED_ALL) !== -1){
+			val = SELECTED_ALL;
+		}
 		this.props.onChange({type: "multi", target: this.props.target, value: val});
 	}
-	/*
-	      	<div>
-		      	<Input
-			        type='text'
-			        value={this.state.value}
-			        placeholder='Enter text'
-			        label={this.props.label}
-			        hasFeedback
-			        ref='input'
-			        groupClassName='group-class'
-			        labelClassName='label-class'
-		        	onChange={this.handleChange} />
-	    	</div>		
-	*/
 
 	render () {
-		let options = this.renderOptions(this.props.selectAll);
+		let options = this.renderOptions(true);
 	      return (
 	      		<Input 
 		      		type='select' 

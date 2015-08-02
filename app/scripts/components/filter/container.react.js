@@ -17,9 +17,8 @@ class Filters extends React.Component{
   constructor (props) {
     super(props);
     this.state = empty;
-    this.m = PhoneStore.getManufactures();
+    this.manufactures = PhoneStore.getManufactures();
 
-    this._applyFiltersClick = this._applyFiltersClick.bind(this);
     this._clearFilters = this._clearFilters.bind(this);
     this._handleFilterChange = this._handleFilterChange.bind(this);
 
@@ -27,18 +26,14 @@ class Filters extends React.Component{
   }
 
   _handleFilterChange(filterMeta){
-    console.log(filterMeta, 'manufacturers');
   	this.filters[filterMeta.target] = filterMeta;
+    PhoneAction.filterPhones(this.filters);
   }
 
   _clearFilters(){
   	this.setState(empty);
   	this.filters = {};
   	PhoneAction.clearFilters();
-  }
-
-  _applyFiltersClick(){
-  	PhoneAction.filterPhones(this.filters);
   }
 
 	render () {
@@ -50,7 +45,7 @@ class Filters extends React.Component{
                     <Row>
                         <Col md={12}>
                             <MultiFilter 
-                            values={this.m} 
+                            values={this.manufactures} 
                             label="Manufacturers" 
                             target="manufacturer" 
                             onChange={this._handleFilterChange} />
@@ -64,8 +59,7 @@ class Filters extends React.Component{
 					</Row>
 					<Row>
 						<Col md={12}>
-							<Button bsStyle='primary' onClick={this._applyFiltersClick}>Apply</Button>
-							<Button bsStyle='primary' onClick={this._clearFilters}>Clear</Button>
+							<Button bsStyle='primary' onClick={this._clearFilters}>Reset filters</Button>
 						</Col>
 					</Row>
 				</Panel>
