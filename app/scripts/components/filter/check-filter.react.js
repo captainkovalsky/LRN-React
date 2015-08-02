@@ -23,7 +23,12 @@ class CheckFilter extends React.Component{
 	render () {
 	      return (
 		      	<div>
-	      			<Input checked={this.state.checked} type='checkbox' ref='input' label={this.props.label} onChange={this.handleChange} />
+	      			<Input 
+	      			checked={this.state.checked} 
+	      			type='checkbox' 
+	      			ref='input' 
+	      			label={this.props.label} 
+	      			onChange={this.handleChange} />
 		    	</div>		
 				);
 	}

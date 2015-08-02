@@ -9,12 +9,12 @@ import _ from 'lodash'; //or lodash-compact ?
 
 var CHANGE_EVENT = 'CHANGE';
 var phones = [
-      {name: 'Alcatel', price: 34324, attr: {color: 'black', hasWifi: true}},
-      {name: 'LUMIA 530', price: 65, attr: {color: 'green', hasWifi: false}},
-      {name: 'Iphone', price: 699, attr: {color: 'blue', hasWifi: false}},
-      {name: 'NEXUS', price: 299, attr: {color: 'red', hasWifi: true}}, 
-      {name: 'LUMIA 630', price: 69, attr: {color: 'green', hasWifi: true}},
-      {name: 'LUMIA 600', price: 34, attr: {color: 'green', hasWifi: false}}
+      {name: 'Alcatel', price: 34324, manufacturer:'Google', attr: {color: 'black', hasWifi: true}},
+      {name: 'LUMIA 530', price: 65, manufacturer:'Microsoft', attr: {color: 'green', hasWifi: false}},
+      {name: 'Iphone', price: 699, manufacturer:'Apple', attr: {color: 'blue', hasWifi: false}},
+      {name: 'NEXUS', price: 299, manufacturer:'Google', attr: {color: 'red', hasWifi: true}}, 
+      {name: 'LUMIA 630', price: 69, manufacturer:'Microsoft', attr: {color: 'green', hasWifi: true}},
+      {name: 'LUMIA 600', price: 34, manufacturer:'Microsoft', attr: {color: 'green', hasWifi: false}}
     ];
 
 class PhoneStore extends EventEmitter{
@@ -42,6 +42,10 @@ class PhoneStore extends EventEmitter{
           }
           this.emitChange();
       });
+  }
+
+  getManufactures(){
+    return _.uniq(_.pluck(phones, 'manufacturer'));
   }
 
   orderPhones (byField){

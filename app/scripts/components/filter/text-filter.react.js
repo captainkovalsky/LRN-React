@@ -14,20 +14,8 @@ class TextFilter extends React.Component{
 		this.setState({value: nextProps.value});
 	}
 
-	validationState() {
-		return 'success';
-	    let length = this.state.value.length;
-	    switch(true){
-	    	case length > 10: return 'success';
-	    	case length > 5: return 'warning';
-	    	case length > 0: return 'error';
-	    default: return 'error';
-	    }
-	}
-
 	handleChange() {
 		let val = this.refs.input.getValue();
-		console.log('value: ', val);
 		this.setState({value: val});
 		this.props.onChange({type: "text", target: this.props.target, value: val});
 	}
@@ -39,9 +27,7 @@ class TextFilter extends React.Component{
 			        type='text'
 			        value={this.state.value}
 			        placeholder='Enter text'
-			        label='Working example with validation'
-			        help='Validation is based on string length.'
-			        bsStyle={this.validationState()}
+			        label={this.props.label}
 			        hasFeedback
 			        ref='input'
 			        groupClassName='group-class'
