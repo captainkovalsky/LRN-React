@@ -13,8 +13,8 @@ class PhoneList extends React.Component{
     this.state = {phones: PhoneStore.getAll()};
   }
 
-  renderPhoneRow (phoneModel) {
-    return (<PhoneRow phone={phoneModel}></PhoneRow>);
+  renderPhoneRow (phoneModel, idx) {
+    return (<PhoneRow key={idx} phone={phoneModel}></PhoneRow>);
     }
 
   _onChange(){
@@ -34,7 +34,7 @@ class PhoneList extends React.Component{
           );
       }
       for(let i = 0, max = this.state.phones.length; i < max; i++){
-        rows.push(this.renderPhoneRow(this.state.phones[i]));
+        rows.push(this.renderPhoneRow(this.state.phones[i], i));
       }
       return (
               <Table responsive>

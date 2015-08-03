@@ -11,16 +11,14 @@ class PhoneApp extends React.Component{
 
     render(){
         return (
-                <Grid>
-                    <Row>
-                        <Col xs={6} md={4}>
-                            <Filter></Filter>
-                        </Col>
-                        <Col xs={12} md={8}>
-                            <PhoneList></PhoneList>
-                        </Col>
-                    </Row>
-                </Grid>
+                <Row>
+                    <Col xs={6} md={4}>
+                        <Filter></Filter>
+                    </Col>
+                    <Col xs={12} md={8}>
+                        <PhoneList></PhoneList>
+                    </Col>
+                </Row>
             );
     }
 }

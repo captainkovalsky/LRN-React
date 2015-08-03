@@ -11,10 +11,10 @@ class MultiFilter extends React.Component{
 
 
 	renderOptions(selectAll = false){
-		let items = this.props.values.map(m => (<option value={m}>{m}</option>));
+		let items = this.props.values.map((m, idx) => (<option key={idx + 1} value={m}>{m}</option>));
 		
 		if(selectAll){
-			items.unshift((<option value={SELECTED_ALL}>All</option>));
+			items.unshift((<option key={0} value={SELECTED_ALL}>All</option>));
 		}
 
 		return items;

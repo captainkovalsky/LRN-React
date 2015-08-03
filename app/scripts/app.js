@@ -2,7 +2,7 @@ import React from 'react';
 import Router from 'react-router';
 
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
-import { NavItem, Nav } from 'react-bootstrap';
+import { Grid, NavItem, Nav } from 'react-bootstrap';
 import { NavItemLink } from 'react-router-bootstrap';
 
 import PhoneApp from './components/phone/phone-app.react';
@@ -24,9 +24,11 @@ class App extends React.Component{
 		return (
 			<div>
                 <Nav bsStyle="pills">
-					<NavItemLink className="pull-right" to="phoneApp" class="pull-right">Phone App</NavItemLink>
+					<NavItemLink className="pull-right" to="phoneApp">Phone App</NavItemLink>
 				</Nav>
-		        <RouteHandler />
+                <Grid fluid={true}>
+    		        <RouteHandler />
+                </Grid>
 	        </div>	
 		    );
 	}
