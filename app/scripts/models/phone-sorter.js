@@ -6,11 +6,8 @@ const colorOrder = ['green', 'blue', 'red'];
 class PhoneSorter {
     constructor() {
         this._order = {
-            name: '',
-            price: '',
-            attr: {
-                color: ''
-            }
+            fieldName: '',
+            direction: ''
         };
 
         this._iteratee = {
@@ -23,11 +20,11 @@ class PhoneSorter {
     }
 
     order(phones, byField) {
-        let previousOrderField = _.get(this._order, byField);
+        let previousOrderField = this._order.fieldName === byField ? this._order.direction : '';
         let withDirection = previousOrderField === DESC ? ASC : DESC;
 
-        _.set(this._order, byField, withDirection);
-
+        this._order.fieldName = byField;
+        this._order.direction = withDirection;
         return _.sortByOrder(phones, this._iteratee[byField], withDirection.toLowerCase()); //TODO: should be changed
     }
 

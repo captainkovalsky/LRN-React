@@ -1,2 +1,7 @@
 $icon-font-path: "../fonts/";
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap";
+
+.fa-sort-asc, .fa-sort-desc {
+    vertical-align: middle;
+    padding-left: 2px;
+}

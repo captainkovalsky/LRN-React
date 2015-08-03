@@ -56,6 +56,10 @@ class PhoneStore extends EventEmitter{
     return this._phones;
   }
 
+  getOrder(){
+    return this.sorter.getOrder();
+  }
+
   clearFilters(){
     this._phones = phones;
   }
