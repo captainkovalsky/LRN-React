@@ -1,5 +1,5 @@
 import AppDispatcher from '../dispatcher/dispatcher';
-import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES} from '../constants/constants.js';
+import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES, CHANGE_PAGE} from '../constants/constants.js';
 
 class PhoneAction{
 
@@ -20,6 +20,14 @@ changeOrderFor(name){
 	AppDispatcher.handleViewAction({
 		actionType: ORDER_PHONES,
 		field: name
+	});
+}
+
+changePage(selectedPage, perPage){
+	AppDispatcher.handleViewAction({
+		actionType: CHANGE_PAGE,
+		page: selectedPage,
+		perPage: perPage
 	});
 }
 }

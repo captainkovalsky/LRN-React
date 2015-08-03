@@ -1,6 +1,6 @@
 import AppDispatcher from '../dispatcher/dispatcher.js';
 import {EventEmitter} from 'events';
-import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES} from '../constants/constants.js';
+import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES, CHANGE_PAGE} from '../constants/constants.js';
 import PhoneSorter from '../models/phone-sorter.js';
 import PhoneFilter from '../models/phone-filter.js';
 
@@ -27,6 +27,7 @@ class PhoneStore extends EventEmitter{
 
     this.filter = new PhoneFilter(); //maybe phones should be injected into PhoneFilter and/or to PhoneSorter ??
     this.sorter = new PhoneSorter();
+    // this.pager = new Pager();
     this._orders = this.sorter.getOrder();
 
       AppDispatcher.register(payload => {
@@ -41,9 +42,17 @@ class PhoneStore extends EventEmitter{
               case ORDER_PHONES:
                   this.orderPhones(action.field);
                   break;
+              case CHANGE_PAGE:
+                  this.changePage(action.page, action.perPage);
+                  break;
           }
           this.emitChange();
       });
+  }
+
+  changePage(page, perPage){
+      console.log('change page in store:', page, perPage);
+      // this._phones = this._phones
   }
 
   getManufactures(){
