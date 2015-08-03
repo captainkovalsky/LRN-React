@@ -10,6 +10,7 @@ class PhoneRow extends React.Component {
       var phone = this.props.phone;
         return (
                   <tr>
+                    <td>{phone.ID}</td>
                     <td>{phone.name}</td>
                     <td>{phone.price}</td>
                     <td>{phone.attr.color}</td>

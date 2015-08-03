@@ -27,6 +27,7 @@ class HeaderPhoneRow extends React.Component {
     render() {
         return (
               <tr>
+                <th>ID</th>
                 <th onClick={this._order.bind(this, 'name')}>name<i className={this._getSortOrderClass('name')}></i></th>
                 <th onClick={this._order.bind(this, 'price')}>price<i className={this._getSortOrderClass('price')}></i></th>
                 <th onClick={this._order.bind(this, 'attr.color')}>color<i className={this._getSortOrderClass('attr.color')}></i></th> 

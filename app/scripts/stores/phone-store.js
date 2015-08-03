@@ -14,8 +14,10 @@ var phones = [
       {name: 'Iphone', price: 699, manufacturer:'Apple', attr: {color: 'blue', hasWifi: false}},
       {name: 'NEXUS', price: 299, manufacturer:'Google', attr: {color: 'red', hasWifi: true}}, 
       {name: 'LUMIA 630', price: 69, manufacturer:'Microsoft', attr: {color: 'green', hasWifi: true}},
-      {name: 'LUMIA 600', price: 34, manufacturer:'Microsoft', attr: {color: 'green', hasWifi: false}}
+      {name: 'LUMIA 600', price: 34, manufacturer:'Microsoft', attr: {color: 'green', hasWifi: false}},
+      {name: 'Gsmart', price: 545, manufacturer:'China', attr: {color: 'gray', hasWifi: true}}
     ];
+    phones.forEach(function(p, idx, arr){ p.ID = idx + 1;});
 
 class PhoneStore extends EventEmitter{
 

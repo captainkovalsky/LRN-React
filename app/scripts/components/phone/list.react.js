@@ -1,6 +1,6 @@
 import React from 'react';
 import PhoneStore from '../../stores/phone-store.js'; //TODO: avoid
-import {Table} from 'react-bootstrap';
+import {Table, Pagination} from 'react-bootstrap';
 
 import PhoneRow from './row.react.js';
 import HeaderPhoneRow from './row-header.react.js';
@@ -13,8 +13,8 @@ class PhoneList extends React.Component{
     this.state = {phones: PhoneStore.getAll()};
   }
 
-  renderPhoneRow (phoneModel, idx) {
-    return (<PhoneRow key={idx} phone={phoneModel}></PhoneRow>);
+  renderPhoneRow (phoneModel) {
+    return (<PhoneRow key={phoneModel.ID} phone={phoneModel}></PhoneRow>);
     }
 
   _onChange(){
@@ -34,15 +34,29 @@ class PhoneList extends React.Component{
           );
       }
       for(let i = 0, max = this.state.phones.length; i < max; i++){
-        rows.push(this.renderPhoneRow(this.state.phones[i], i));
+        rows.push(this.renderPhoneRow(this.state.phones[i]));
       }
       return (
-              <Table responsive>
-                <thead>
-                 <HeaderPhoneRow />
-                </thead> 
-                <tbody>{rows}</tbody>
-              </Table>
+            <div>
+                <Table responsive bordered hover >
+                  <thead>
+                   <HeaderPhoneRow />
+                  </thead> 
+                  <tbody>{rows}</tbody>
+                </Table>
+                 <Pagination
+                  prev
+                  next
+                  first
+                  last
+                  ellipsis
+                  bsSize='medium'
+                  items={3}
+                  maxButtons={2}
+                  activePage={this.state.activePage}
+                  onSelect={this.handleSelect} />
+                <br />
+              </div>
             );
     }
 }
