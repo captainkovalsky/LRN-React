@@ -9,6 +9,7 @@ class PhoneList extends React.Component{
 
   constructor (props) {
     super(props);
+    PhoneStore.clearFilters(); //should clear between changing routes
     this.state = {phones: PhoneStore.getAll()};
   }
 

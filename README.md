@@ -1,1 +1,1 @@
-Build status [![Build Status](http://104.131.159.56:8080/buildStatus/icon?job=phone-store&style=plastic)](http://104.131.159.56:8080/job/phone-store/)
+Build status [![Build Status](http://104.131.159.56:8080/buildStatus/icon?job=phone-store-develop&style=plastic)](http://104.131.159.56:8080/job/phone-store-develop/)
