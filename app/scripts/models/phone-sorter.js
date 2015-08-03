@@ -25,7 +25,15 @@ class PhoneSorter {
 
         this._order.fieldName = byField;
         this._order.direction = withDirection;
-        return _.sortByOrder(phones, this._iteratee[byField], withDirection.toLowerCase()); //TODO: should be changed
+        return _.sortByOrder(phones, this._iteratee[byField], withDirection); //TODO: should be changed
+    }
+
+    keepOrder(phones){
+        let byField = this._order.fieldName;
+        let direction = this._order.direction.toLowerCase();
+        let wasOrdered = (byField !== '' && direction !== '');
+
+        return wasOrdered ? _.sortByOrder(phones, this._iteratee[byField], direction) : phones;
     }
 
     getOrder(){

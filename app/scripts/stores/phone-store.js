@@ -68,7 +68,7 @@ class PhoneStore extends EventEmitter{
 
   applyFilter(filters){
     this.filter.setFilters(filters);
-    this._phones = this.filter.applyFilters(phones);
+    this._phones = this.sorter.keepOrder(this.filter.applyFilters(phones));
   }
 
   emitChange () {
