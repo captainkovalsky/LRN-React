@@ -7,13 +7,15 @@ import PhoneAction from '../../actions/phone-action.js'; //TODO: avoid
 import PhoneRow from './row.react.js';
 import HeaderPhoneRow from './row-header.react.js';
 
+const DISPLAY_ON_PAGE = 3;
+const MAX_PAGING_BUTTONS = 3;
 class PhoneList extends React.Component{
 
   constructor (props) {
     super(props);
     PhoneAction.clearFilters();
     this.state = {phones: PhoneStore.getAll(), activePage: 1};
-    this.perPage = 2;
+    this.items = PhoneStore.getPagingItems(DISPLAY_ON_PAGE); 
   }
 
   renderPhoneRow (phoneModel) {
@@ -31,7 +33,7 @@ class PhoneList extends React.Component{
 
   handleSelect(evt,selectedEvent){
     let page = selectedEvent.eventKey;
-    PhoneAction.changePage(page, this.perPage);
+    PhoneAction.changePage(page, DISPLAY_ON_PAGE);
     this.setState({activePage: page}); //just for test
   }
 
@@ -60,8 +62,8 @@ class PhoneList extends React.Component{
                   last
                   ellipsis
                   bsSize='medium'
-                  items={this.state.phones.length}
-                  maxButtons={2}
+                  items={this.items}
+                  maxButtons={MAX_PAGING_BUTTONS}
                   activePage={this.state.activePage}
                   onSelect={this.handleSelect.bind(this)} />
                 <br />

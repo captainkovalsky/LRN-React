@@ -23,11 +23,11 @@ changeOrderFor(name){
 	});
 }
 
-changePage(selectedPage, perPage){
+changePage(selectedPage, onPage){
 	AppDispatcher.handleViewAction({
 		actionType: CHANGE_PAGE,
 		page: selectedPage,
-		perPage: perPage
+		onPage: onPage
 	});
 }
 }

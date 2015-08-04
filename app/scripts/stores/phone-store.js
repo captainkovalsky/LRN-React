@@ -43,16 +43,24 @@ class PhoneStore extends EventEmitter{
                   this.orderPhones(action.field);
                   break;
               case CHANGE_PAGE:
-                  this.changePage(action.page, action.perPage);
+                  this.changePage(action.page, action.onPage);
                   break;
           }
           this.emitChange();
       });
   }
 
-  changePage(page, perPage){
-      console.log('change page in store:', page, perPage);
+  changePage(page, onPage){
+      console.log('change page in store:', page, onPage);
       // this._phones = this._phones
+  }
+  
+  getPagingItems(onPage = 10){
+    if( onPage === 0 ){
+      throw "Items on page must be greater than 0.";
+    }
+
+    return Math.ceil(phones.length / onPage);
   }
 
   getManufactures(){
