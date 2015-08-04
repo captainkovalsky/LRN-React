@@ -1,6 +1,6 @@
 import _ from 'lodash';
-const ASC = 'ASC';
-const DESC = 'DESC';
+const ASC = 'asc';
+const DESC = 'desc';
 
 class Sorter {
     constructor(iteratee) {
