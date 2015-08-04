@@ -15,7 +15,6 @@ class PhoneList extends React.Component{
     super(props);
     PhoneAction.clearFilters();
     let paged = PhoneStore.getPaged();
-    console.log(PhoneStore.getAll(), 'all');
     this.state = {phones: PhoneStore.getAll(), activePage: 1};
     this.items = PhoneStore.getPagingItems(DISPLAY_ON_PAGE); 
   }
@@ -26,7 +25,6 @@ class PhoneList extends React.Component{
 
   _onChange(){
     var phones = PhoneStore.getAll();
-    console.log('phones ', phones);
     this.setState({phones: phones});
   }
 

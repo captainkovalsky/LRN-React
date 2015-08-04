@@ -17,7 +17,7 @@ class Sorter {
         
         this._order.fieldName = byField;
         this._order.direction = withDirection;
-        console.log('sort %s by %s ', withDirection, byField);
+        
         return _.sortByOrder(items, this._iteratee[byField], withDirection);
     }
 
