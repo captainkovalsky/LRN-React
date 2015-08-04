@@ -23,7 +23,7 @@ class PhoneList extends React.Component{
     }
 
   _onChange(){
-    var phones = PhoneStore.getAll();
+    var phones = PhoneStore.getPaged();
     this.setState({phones: phones});
   }
 
@@ -56,8 +56,6 @@ class PhoneList extends React.Component{
                   <tbody>{rows}</tbody>
                 </Table>
                  <Pagination
-                  prev
-                  next
                   first
                   last
                   ellipsis

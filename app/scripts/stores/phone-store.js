@@ -50,9 +50,14 @@ class PhoneStore extends EventEmitter{
       });
   }
 
-  changePage(page, onPage){
-      console.log('change page in store:', page, onPage);
-      // this._phones = this._phones
+  changePage(page, perPage){
+      let startFrom = (page - 1) * perPage;
+      let paged = this._phones.slice(startFrom, startFrom + perPage);
+      this._paged = paged;
+  }
+
+  getPaged(){
+    return this._paged;
   }
   
   getPagingItems(onPage = 10){
