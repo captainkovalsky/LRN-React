@@ -7,13 +7,15 @@ import PhoneAction from '../../actions/phone-action.js'; //TODO: avoid
 import PhoneRow from './row.react.js';
 import HeaderPhoneRow from './row-header.react.js';
 
-const DISPLAY_ON_PAGE = 3;
-const MAX_PAGING_BUTTONS = 3;
+import {DISPLAY_ON_PAGE, MAX_PAGING_BUTTONS} from '../../constants/constants.js';
+
 class PhoneList extends React.Component{
 
   constructor (props) {
     super(props);
     PhoneAction.clearFilters();
+    let paged = PhoneStore.getPaged();
+    console.log(PhoneStore.getAll(), 'all');
     this.state = {phones: PhoneStore.getAll(), activePage: 1};
     this.items = PhoneStore.getPagingItems(DISPLAY_ON_PAGE); 
   }
@@ -23,7 +25,8 @@ class PhoneList extends React.Component{
     }
 
   _onChange(){
-    var phones = PhoneStore.getPaged();
+    var phones = PhoneStore.getAll();
+    console.log('phones ', phones);
     this.setState({phones: phones});
   }
 

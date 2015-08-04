@@ -1,7 +1,7 @@
 import AppDispatcher from '../dispatcher/dispatcher.js';
 import {EventEmitter} from 'events';
-import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES, CHANGE_PAGE} from '../constants/constants.js';
-import PhoneSorter from '../models/phone-sorter.js';
+import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES, CHANGE_PAGE, DISPLAY_ON_PAGE} from '../constants/constants.js';
+import Sorter from '../models/sorter.js';
 import PhoneFilter from '../models/phone-filter.js';
 
 import _ from 'lodash'; //or lodash-compact ?
@@ -18,6 +18,7 @@ var phones = [
       {name: 'Gsmart', price: 545, manufacturer:'China', attr: {color: 'gray', hasWifi: true}}
     ];
     phones.forEach(function(p, idx, arr){ p.ID = idx + 1;});
+const colorOrder = ['green', 'blue', 'red'];
 
 class PhoneStore extends EventEmitter{
 
@@ -26,7 +27,15 @@ class PhoneStore extends EventEmitter{
     this._phones = phones;
 
     this.filter = new PhoneFilter(); //maybe phones should be injected into PhoneFilter and/or to PhoneSorter ??
-    this.sorter = new PhoneSorter();
+    let iteratee = {
+            'name': phone => phone.name.toLowerCase() ,
+            'price': 'price',
+            'attr.color': phone => colorOrder.indexOf(phone.attr.color),
+            'attr.hasWifi': phone => phone.attr.hasWifi
+        };
+    this.sorter = new Sorter(iteratee);
+
+    this.changePage(1, DISPLAY_ON_PAGE);
     // this.pager = new Pager();
     this._orders = this.sorter.getOrder();
 
@@ -50,9 +59,9 @@ class PhoneStore extends EventEmitter{
       });
   }
 
-  changePage(page, perPage){
-      let startFrom = (page - 1) * perPage;
-      let paged = this._phones.slice(startFrom, startFrom + perPage);
+  changePage(page){
+      let startFrom = (page - 1) * DISPLAY_ON_PAGE;
+      let paged = this._phones.slice(startFrom, startFrom + DISPLAY_ON_PAGE);
       this._paged = paged;
   }
 
@@ -60,12 +69,8 @@ class PhoneStore extends EventEmitter{
     return this._paged;
   }
   
-  getPagingItems(onPage = 10){
-    if( onPage === 0 ){
-      throw "Items on page must be greater than 0.";
-    }
-
-    return Math.ceil(phones.length / onPage);
+  getPagingItems(){
+    return Math.ceil(this._phones.length / DISPLAY_ON_PAGE);
   }
 
   getManufactures(){
