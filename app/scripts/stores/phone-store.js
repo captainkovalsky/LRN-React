@@ -44,9 +44,11 @@ class PhoneStore extends EventEmitter{
           switch (action.actionType) {
               case FILTER_PHONE:
                   this.applyFilter(action.filters);
+                  this.calcPaging();
                   break;
               case CLEAR_FILTERS:
                   this.clearFilters();
+                  this.calcPaging();
                   break;
               case ORDER_PHONES:
                   this.orderPhones(action.field);
@@ -57,6 +59,10 @@ class PhoneStore extends EventEmitter{
           }
           this.emitChange();
       });
+  }
+
+  calcPaging(){
+    console.log('calc pages etc ...');
   }
 
   changePage(page){
