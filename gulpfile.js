@@ -3,9 +3,7 @@
 var gulp = require('gulp');
 var del = require('del');
 
-
 var path = require('path');
-
 
 // Load plugins
 var $ = require('gulp-load-plugins')();
@@ -174,8 +172,6 @@ gulp.task('watch', ['html', 'fonts', 'bundle'], function() {
 
     gulp.watch(['app/styles/**/*.scss', 'app/styles/**/*.css'], ['styles', reload]);
 
-
-
     // Watch image files
     gulp.watch('app/images/**/*', reload);
 });
@@ -187,6 +183,7 @@ gulp.task('build', ['html', 'buildBundle', 'images', 'fonts', 'extras'], functio
         .pipe($.stripDebug())
         .pipe(gulp.dest('dist/scripts'));
 });
+
 
 // Default task
 gulp.task('default', ['clean', 'build'  , 'jest'  ]);

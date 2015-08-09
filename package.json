@@ -18,6 +18,7 @@
     "stackup": "^1.0.1"
   },
   "devDependencies": {
+    "babel-jest": "^5.3.0",
     "babelify": "^6.1.2",
     "browser-sync": "latest",
     "browserify-shim": "^3.8.0",
@@ -26,7 +27,6 @@
     "gulp-bower": "0.0.6",
     "gulp-cache": "~0.2.4",
     "gulp-imagemin": "latest",
-    "gulp-jest": "~0.2.2",
     "gulp-jshint": "~1.8.5",
     "gulp-load-plugins": "~0.7.0",
     "gulp-ruby-sass": "~0.7.1",
@@ -37,7 +37,7 @@
     "gulp-useref": "~0.4.4",
     "gulp-util": "~3.0.1",
     "gulp-webserver": "latest",
-    "jest-cli": "latest",
+    "jest-cli": "*",
     "main-bower-files": "~2.6.2",
     "react": "latest",
     "react-tools": "latest",
@@ -53,9 +53,22 @@
     "test": "jest"
   },
   "jest": {
-    "scriptPreprocessor": "<rootDir>/preprocessor.js",
+    "scriptPreprocessor": "../node_modules/babel-jest",
+    "testFileExtensions": [
+      "es6",
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "es6"
+    ],
+    "rootDir": "./app",
+    "collectCoverage": true,
     "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react"
+      "react",
+      "events",
+      "lodash"
     ]
   },
   "browserify": {

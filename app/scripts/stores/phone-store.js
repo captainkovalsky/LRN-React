@@ -62,7 +62,7 @@ class PhoneStore extends EventEmitter{
   }
 
   calcPaging(){
-    console.log('calc pages etc ...');
+    // console.log('calc pages etc ...');
   }
 
   changePage(page){
