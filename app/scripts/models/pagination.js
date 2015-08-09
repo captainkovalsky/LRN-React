@@ -1,20 +1,24 @@
 export default class Pagination{
-    constructor(){
-        console.log('constructor run ');
+    constructor(onPage = 10){
+        this.onPage = onPage;
+        this.page = 1;
+    }
+    getOnPage(){
+        return this.onPage;
     }
 
-    test(){
-        return 1;
-    }
-
-    testCoverageUncovered(){
-        for(let i = 0; i < 100; i++){
-            if(i % 2){
-                //do something
-            }else{
-                //do something
-            }
+    setItems(items = []){
+        if(!(items instanceof Array)){
+            throw new Error('Must only arrays to be passed.');
         }
+        this.items = items.slice();
     }
 
+    getActivePage(){
+        return this.page;
+    }
+
+    changePage(page){
+        this.page = page;
+    }
 }
