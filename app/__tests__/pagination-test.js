@@ -18,6 +18,11 @@ describe('Pagination', function() {
         it('should set default value of onPage property', function() {
             expect(new Pagination().getOnPage()).toBe(10);
         });
+
+        it('should set onPage property', () => {
+            pagination.setOnPage(434);
+            expect(pagination.getOnPage()).toBe(434);
+        });
     });
 
     describe('setItems method', function() {
@@ -55,6 +60,28 @@ describe('Pagination', function() {
             pagination.changePage(2);
             expect(pagination.getActivePage()).toBe(2);
         });
+    });
+
+    describe('pages count', () => {
+        let onPage = 2;
+
+        beforeEach(() => {
+            pagination = new Pagination(onPage);
+        });
+
+        it('should return pages count', () => {
+            pagination.setItems([1,2,3]);
+            let pageItems = pagination.getPagesCount();
+            expect(pageItems).toBe(2);
+        });
+
+        it('should change page items when onPage is changed', () => {
+            pagination.setItems([1,2,3]);
+            pagination.setOnPage(1);
+            let pageItems = pagination.getPagesCount();
+            expect(pageItems).toBe(3);
+        });
+
     });
 
 });

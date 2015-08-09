@@ -7,16 +7,17 @@ import PhoneAction from '../../actions/phone-action.js'; //TODO: avoid
 import PhoneRow from './row.react.js';
 import HeaderPhoneRow from './row-header.react.js';
 
-import {DISPLAY_ON_PAGE, MAX_PAGING_BUTTONS} from '../../constants/constants.js';
+import {MAX_PAGING_BUTTONS} from '../../constants/constants.js';
 
 class PhoneList extends React.Component{
 
   constructor (props) {
     super(props);
     PhoneAction.clearFilters();
-    let paged = PhoneStore.getPaged();
-    this.state = {phones: PhoneStore.getAll(), activePage: 1};
-    this.items = PhoneStore.getPagingItems(DISPLAY_ON_PAGE); 
+    this.state = {
+      phones: PhoneStore.getPagedItems(), 
+      activePage: 1, 
+      pagesCount: PhoneStore.getPagesCount()};
   }
 
   renderPhoneRow (phoneModel) {
@@ -24,8 +25,12 @@ class PhoneList extends React.Component{
     }
 
   _onChange(){
-    var phones = PhoneStore.getAll();
-    this.setState({phones: phones});
+    var phones = PhoneStore.getPagedItems();
+    this.setState({
+      phones: phones, 
+      activePage: PhoneStore.getActivePage(),
+      pagesCount: PhoneStore.getPagesCount()
+    });
   }
 
   componentWillMount(){
@@ -34,7 +39,7 @@ class PhoneList extends React.Component{
 
   handleSelect(evt,selectedEvent){
     let page = selectedEvent.eventKey;
-    PhoneAction.changePage(page, DISPLAY_ON_PAGE);
+    PhoneAction.changePage(page);
     this.setState({activePage: page}); //just for test
   }
 
@@ -56,15 +61,17 @@ class PhoneList extends React.Component{
                   </thead> 
                   <tbody>{rows}</tbody>
                 </Table>
-                 <Pagination
+                { this.state.pagesCount > 1 ? 
+                  <Pagination
                   first
                   last
                   ellipsis
                   bsSize='medium'
-                  items={this.items}
-                  maxButtons={MAX_PAGING_BUTTONS}
+                  maxButtons={this.state.pagesCount > MAX_PAGING_BUTTONS ? MAX_PAGING_BUTTONS : this.state.pagesCount}
+                  items={this.state.pagesCount}
                   activePage={this.state.activePage}
-                  onSelect={this.handleSelect.bind(this)} />
+                  onSelect={this.handleSelect.bind(this)} />: null }
+                 
                 <br />
               </div>
             );

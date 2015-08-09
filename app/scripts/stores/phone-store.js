@@ -3,6 +3,7 @@ import {EventEmitter} from 'events';
 import {FILTER_PHONE, CLEAR_FILTERS, ORDER_PHONES, CHANGE_PAGE, DISPLAY_ON_PAGE} from '../constants/constants.js';
 import Sorter from '../models/sorter.js';
 import PhoneFilter from '../models/phone-filter.js';
+import Pagination from '../models/pagination.js';
 
 import _ from 'lodash'; //or lodash-compact ?
 
@@ -25,7 +26,8 @@ class PhoneStore extends EventEmitter{
   constructor(){
     super();
     this._phones = phones;
-
+    this.pagination = new Pagination(2);
+    this.pagination.setItems(phones);
     this.filter = new PhoneFilter(); //maybe phones should be injected into PhoneFilter and/or to PhoneSorter ??
     let iteratee = {
             'name': phone => phone.name.toLowerCase() ,
@@ -35,8 +37,6 @@ class PhoneStore extends EventEmitter{
         };
     this.sorter = new Sorter(iteratee);
 
-    this.changePage(1, DISPLAY_ON_PAGE);
-    // this.pager = new Pager();
     this._orders = this.sorter.getOrder();
 
       AppDispatcher.register(payload => {
@@ -44,11 +44,11 @@ class PhoneStore extends EventEmitter{
           switch (action.actionType) {
               case FILTER_PHONE:
                   this.applyFilter(action.filters);
-                  this.calcPaging();
+                  this.updatePagingItems();
                   break;
               case CLEAR_FILTERS:
                   this.clearFilters();
-                  this.calcPaging();
+                  this.updatePagingItems();
                   break;
               case ORDER_PHONES:
                   this.orderPhones(action.field);
@@ -61,22 +61,25 @@ class PhoneStore extends EventEmitter{
       });
   }
 
-  calcPaging(){
-    // console.log('calc pages etc ...');
+  updatePagingItems(){
+     this.pagination.setItems(this._phones);
+     this.pagination.changePage(1);
   }
 
   changePage(page){
-      let startFrom = (page - 1) * DISPLAY_ON_PAGE;
-      let paged = this._phones.slice(startFrom, startFrom + DISPLAY_ON_PAGE);
-      this._paged = paged;
+     this.pagination.changePage(page);
   }
 
-  getPaged(){
-    return this._paged;
+  getPagedItems(){
+    return this.pagination.getPagedItems();
   }
   
-  getPagingItems(){
-    return Math.ceil(this._phones.length / DISPLAY_ON_PAGE);
+  getPagesCount(){
+    return this.pagination.getPagesCount();
+  }
+
+  getActivePage(){
+    return this.pagination.getActivePage();
   }
 
   getManufactures(){
@@ -85,10 +88,6 @@ class PhoneStore extends EventEmitter{
 
   orderPhones (byField){
     this._phones = this.sorter.order(this._phones, byField);
-  }
-
-  getAll(){
-    return this._phones;
   }
 
   getOrder(){

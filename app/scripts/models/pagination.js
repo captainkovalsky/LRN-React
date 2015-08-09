@@ -1,8 +1,15 @@
+import {DISPLAY_ON_PAGE} from '../constants/constants.js';
+
 export default class Pagination{
     constructor(onPage = 10){
         this.onPage = onPage;
         this.page = 1;
     }
+
+    setOnPage(onPage){
+        this.onPage = onPage;
+    }
+
     getOnPage(){
         return this.onPage;
     }
@@ -20,5 +27,14 @@ export default class Pagination{
 
     changePage(page){
         this.page = page;
+    }
+
+    getPagesCount(){
+        return Math.ceil(this.items.length / this.onPage);
+    }
+
+    getPagedItems(){
+       let startFrom = (this.page - 1) * this.onPage;
+       return this.items.slice(startFrom, startFrom + this.onPage);
     }
 }
