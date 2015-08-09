@@ -64,7 +64,6 @@
       "es6"
     ],
     "rootDir": "./app",
-    "testPathDirs": ["./app/scripts"],
     "collectCoverage": true,
     "unmockedModulePathPatterns": [
       "react",
