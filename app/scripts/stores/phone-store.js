@@ -52,6 +52,7 @@ class PhoneStore extends EventEmitter{
                   break;
               case ORDER_PHONES:
                   this.orderPhones(action.field);
+                  this.updatePagingItems(this.pagination.getActivePage());
                   break;
               case CHANGE_PAGE:
                   this.changePage(action.page, action.onPage);
@@ -61,9 +62,9 @@ class PhoneStore extends EventEmitter{
       });
   }
 
-  updatePagingItems(){
+  updatePagingItems(page = 1){
      this.pagination.setItems(this._phones);
-     this.pagination.changePage(1);
+     this.pagination.changePage(page);
   }
 
   changePage(page){
